@@ -1,0 +1,554 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Nightway — Credits</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Share+Tech+Mono&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Share Tech Mono', monospace;
+    background: #000000;
+    color: #00ff00;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+    position: relative;
+    overflow-x: hidden;
+    animation: glitchBackground 0.3s infinite;
+    border: 20px solid #333333;
+    border-radius: 15px;
+    box-shadow: 
+        0 0 30px rgba(0, 255, 0, 0.3),
+        inset 0 0 20px rgba(0, 255, 0, 0.1);
+}
+
+@keyframes glitchBackground {
+    0%, 100% { 
+        background: #000000;
+    }
+    10% { 
+        background: #001100;
+    }
+    20% { 
+        background: #000000;
+    }
+    30% { 
+        background: #002200;
+    }
+    40% { 
+        background: #000000;
+    }
+    50% { 
+        background: #001100;
+    }
+    60% { 
+        background: #000000;
+    }
+    70% { 
+        background: #002200;
+    }
+    80% { 
+        background: #000000;
+    }
+    90% { 
+        background: #001100;
+    }
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: 
+        repeating-linear-gradient(
+            0deg,
+            transparent,
+            transparent 2px,
+            rgba(0, 255, 0, 0.03) 2px,
+            rgba(0, 255, 0, 0.03) 4px
+        );
+    pointer-events: none;
+    z-index: -1;
+    animation: scanlines 0.1s linear infinite;
+}
+
+/* TV Screen effect */
+body::after {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(ellipse at center, transparent 0%, rgba(0, 0, 0, 0.1) 100%);
+    pointer-events: none;
+    z-index: 1;
+}
+
+@keyframes scanlines {
+    0% { transform: translateY(0); }
+    100% { transform: translateY(4px); }
+}
+
+h1 {
+    font-family: 'Share Tech Mono', monospace;
+    font-weight: 900;
+    font-size: 3rem;
+    text-align: center;
+    margin-bottom: 30px;
+    color: #00ff00;
+    text-shadow: 
+        0 0 2px #00ff00,
+        0 0 4px #00ff00,
+        0 0 6px #00ff00;
+    position: relative;
+    animation: glitchText 0.3s infinite;
+}
+
+h1::before {
+    content: 'CREDITS';
+    position: absolute;
+    top: 0;
+    left: 0;
+    color: #00ff00;
+    z-index: -1;
+    animation: glitchShift 2s infinite;
+    opacity: 0.7;
+}
+
+h1::after {
+    content: 'CREDITS';
+    position: absolute;
+    top: 0;
+    left: 0;
+    color: #00ff00;
+    z-index: -2;
+    animation: glitchShift 2s infinite reverse;
+    opacity: 0.5;
+}
+
+@keyframes glitchText {
+    0%, 100% { 
+        transform: translate(0);
+    }
+    10% { 
+        transform: translate(-0.3px, 0.3px);
+    }
+    20% { 
+        transform: translate(0.3px, -0.3px);
+    }
+    30% { 
+        transform: translate(-0.3px, -0.3px);
+    }
+    40% { 
+        transform: translate(0.3px, 0.3px);
+    }
+    50% { 
+        transform: translate(0);
+    }
+}
+
+@keyframes glitchShift {
+    0%, 100% { transform: translate(0); }
+    20% { transform: translate(-0.5px, 0.5px); }
+    40% { transform: translate(-0.5px, -0.5px); }
+    60% { transform: translate(0.5px, 0.5px); }
+    80% { transform: translate(0.5px, -0.5px); }
+}
+
+h2 {
+    font-family: 'Share Tech Mono', monospace;
+    font-weight: 700;
+    color: #00ff00;
+    margin-top: 40px;
+    margin-bottom: 20px;
+    font-size: 1.8rem;
+    text-shadow: 0 0 2px #00ff00;
+    position: relative;
+    padding-left: 20px;
+    animation: glitchText 0.5s infinite;
+}
+
+h2::before {
+    content: '>';
+    position: absolute;
+    left: 0;
+    color: #00ff00;
+    animation: blink 1s infinite;
+    font-weight: bold;
+}
+
+@keyframes blink {
+    0%, 50% { opacity: 1; }
+    51%, 100% { opacity: 0; }
+}
+
+.credits-section {
+    background: rgba(0, 255, 0, 0.05);
+    border: 1px solid #00ff00;
+    border-radius: 0;
+    padding: 20px;
+    margin: 20px 0;
+    position: relative;
+    box-shadow: 
+        0 0 10px rgba(0, 255, 0, 0.3),
+        inset 0 0 10px rgba(0, 255, 0, 0.1);
+    transition: all 0.3s ease;
+    animation: glitchBox 0.4s infinite;
+}
+
+.credits-section::before {
+    content: '';
+    position: absolute;
+    top: -1px;
+    left: -1px;
+    right: -1px;
+    bottom: -1px;
+    background: #00ff00;
+    border-radius: 0;
+    z-index: -1;
+    animation: borderGlitch 2s linear infinite;
+    opacity: 0.3;
+}
+
+@keyframes borderGlitch {
+    0%, 100% { 
+        background: #00ff00;
+        transform: translate(0);
+    }
+    25% { 
+        background: #00ff00;
+        transform: translate(-0.3px, 0.3px);
+    }
+    50% { 
+        background: #00ff00;
+        transform: translate(0.3px, -0.3px);
+    }
+    75% { 
+        background: #00ff00;
+        transform: translate(-0.3px, -0.3px);
+    }
+}
+
+@keyframes glitchBox {
+    0%, 100% { 
+        transform: translate(0);
+    }
+    10% { 
+        transform: translate(-0.2px, 0.2px);
+    }
+    20% { 
+        transform: translate(0.2px, -0.2px);
+    }
+    30% { 
+        transform: translate(-0.2px, -0.2px);
+    }
+    40% { 
+        transform: translate(0.2px, 0.2px);
+    }
+}
+
+.credits-section:hover {
+    transform: translateY(-1px);
+    box-shadow: 
+        0 0 15px rgba(0, 255, 0, 0.5),
+        inset 0 0 15px rgba(0, 255, 0, 0.2);
+    animation: glitchBox 0.2s infinite;
+}
+
+p {
+    margin: 15px 0;
+    padding: 8px 0;
+    border-left: 2px solid #00ff00;
+    padding-left: 15px;
+    position: relative;
+    transition: all 0.3s ease;
+    animation: glitchText 0.8s infinite;
+}
+
+p::before {
+    content: '■';
+    position: absolute;
+    left: -8px;
+    color: #00ff00;
+    font-size: 0.8rem;
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 0.5; transform: scale(1); }
+    50% { opacity: 1; transform: scale(1.2); }
+}
+
+p:hover {
+    background: rgba(0, 255, 0, 0.1);
+    transform: translateX(5px);
+    animation: glitchText 0.3s infinite;
+}
+
+code {
+    background: rgba(0, 255, 0, 0.1);
+    border: 1px solid #00ff00;
+    padding: 2px 6px;
+    font-family: 'Share Tech Mono', monospace;
+    color: #00ff00;
+    text-shadow: 0 0 1px #00ff00;
+}
+
+a {
+    color: #00ff00;
+    text-decoration: none;
+    font-weight: 700;
+    position: relative;
+    transition: all 0.3s ease;
+    text-shadow: 0 0 1px #00ff00;
+    animation: glitchText 1s infinite;
+}
+
+a::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: #00ff00;
+    transition: width 0.3s ease;
+    box-shadow: 0 0 5px #00ff00;
+}
+
+a:hover {
+    color: #00ff00;
+    text-shadow: 0 0 8px #00ff00;
+    animation: glitchText 0.3s infinite;
+}
+
+a:hover::after {
+    width: 100%;
+}
+
+/* TV Channel indicator */
+.tv-channel {
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    background: rgba(0, 255, 0, 0.1);
+    border: 1px solid #00ff00;
+    padding: 5px 10px;
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.8rem;
+    color: #00ff00;
+    text-shadow: 0 0 1px #00ff00;
+    animation: glitchText 0.5s infinite;
+    z-index: 10;
+}
+
+/* TV Static effect */
+.tv-static {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: 
+        repeating-linear-gradient(
+            45deg,
+            transparent,
+            transparent 1px,
+            rgba(0, 255, 0, 0.01) 1px,
+            rgba(0, 255, 0, 0.01) 2px
+        );
+    pointer-events: none;
+    z-index: 0;
+    animation: static 0.1s linear infinite;
+}
+
+@keyframes static {
+    0% { transform: translate(0, 0); }
+    10% { transform: translate(-0.3px, 0.3px); }
+    20% { transform: translate(0.3px, -0.3px); }
+    30% { transform: translate(-0.3px, -0.3px); }
+    40% { transform: translate(0.3px, 0.3px); }
+    50% { transform: translate(0, 0); }
+    60% { transform: translate(-0.3px, 0.3px); }
+    70% { transform: translate(0.3px, -0.3px); }
+    80% { transform: translate(-0.3px, -0.3px); }
+    90% { transform: translate(0.3px, 0.3px); }
+    100% { transform: translate(0, 0); }
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    h1 { font-size: 2rem; }
+    h2 { font-size: 1.5rem; }
+    .credits-section { padding: 15px; }
+    body { padding: 10px; border: 10px solid #333333; }
+}
+</style>
+</head>
+<body>
+<div class="tv-static"></div>
+<div class="tv-channel">CH 13</div>
+
+<div class="glitch" data-text="CREDITS">
+    <h1>🎮 CREDITS</h1>
+</div>
+
+<div style="text-align: center; margin-bottom: 30px; font-family: 'Share Tech Mono', monospace; color: #00ff00; text-shadow: 0 0 5px #00ff00;">
+    <div style="font-size: 1.2rem; margin-bottom: 10px; animation: glitchText 0.6s infinite;">╔══════════════════════════════════════════════════════════════╗</div>
+    <div style="font-size: 0.9rem; color: #00ff00; animation: glitchText 0.8s infinite;">[ RETRO HORROR MAZE SIMULATION v2.0 ]</div>
+    <div style="font-size: 0.8rem; color: #00ff00; margin-top: 5px; animation: glitchText 1s infinite;">[ CREDITS & ACKNOWLEDGMENTS ]</div>
+    <div style="font-size: 1.2rem; margin-top: 10px; animation: glitchText 0.6s infinite;">╚══════════════════════════════════════════════════════════════╝</div>
+</div>
+
+<div class="credits-section">
+    <h2>🎮 Development Team</h2>
+    <p><strong>Game Concept & Design:</strong> Halcyon / Yael</p>
+    <p><strong>Programming & Code:</strong> Halcyon / Yael</p>
+    <p><strong>Art Direction:</strong> Retro Terminal Aesthetic</p>
+    <p><strong>Sound Design:</strong> Digital Glitch Effects</p>
+</div>
+
+<div class="credits-section">
+    <h2>💻 Technical Details</h2>
+    <p><strong>Engine:</strong> Vanilla JavaScript (ES6+)</p>
+    <p><strong>Graphics:</strong> HTML5 Canvas API</p>
+    <p><strong>Styling:</strong> CSS3 with Retro Animations</p>
+    <p><strong>Code Location:</strong> All logic in <code>main.js</code></p>
+    <p><strong>Architecture:</strong> Single-page application with modular design</p>
+</div>
+
+<div class="credits-section">
+    <h2>🎨 Visual Effects</h2>
+    <p><strong>Glitch Aesthetics:</strong> CSS animations and transforms</p>
+    <p><strong>TV Simulation:</strong> Scanlines, static, and CRT effects</p>
+    <p><strong>Color Scheme:</strong> Green phosphor on black terminal</p>
+    <p><strong>Typography:</strong> Share Tech Mono monospace font</p>
+    <p><strong>Animations:</strong> Subtle position shifts and color variations</p>
+</div>
+
+<div class="credits-section">
+    <h2>🎯 Game Features</h2>
+    <p><strong>Maze Generation:</strong> Procedural maze carving algorithm</p>
+    <p><strong>AI System:</strong> State-based monster behavior (patrol/investigate/chase)</p>
+    <p><strong>Collision Detection:</strong> Radius-based collision system</p>
+    <p><strong>Power-ups:</strong> Teleport items with strategic usage</p>
+    <p><strong>Multiplayer:</strong> Two-player mode with separate controls</p>
+</div>
+
+<div style="text-align: center; margin-top: 50px; font-family: 'Share Tech Mono', monospace;">
+    <div style="color: #00ff00; font-size: 1.1rem; margin-bottom: 20px; animation: glitchText 0.6s infinite;">
+        ╔══════════════════════════════════════════════════════════════╗
+    </div>
+    <div style="color: #00ff00; font-size: 0.9rem; margin-bottom: 15px; animation: glitchText 0.8s infinite;">
+        [ SYSTEM READY - AWAITING USER INPUT ]
+    </div>
+    <div style="color: #00ff00; font-size: 1rem; margin-bottom: 20px;">
+        <a href="index.html">[<] RETURN TO MAINFRAME</a>
+    </div>
+    <div style="color: #00ff00; font-size: 1.1rem; animation: glitchText 0.6s infinite;">
+        ╚══════════════════════════════════════════════════════════════╝
+    </div>
+    <div style="color: #00ff00; font-size: 0.8rem; margin-top: 20px; opacity: 0.7; animation: glitchText 1.2s infinite;">
+        [ THANK YOU FOR PLAYING NIGHTWAY ]
+    </div>
+    <div style="color: #00ff00; font-size: 0.7rem; margin-top: 10px; opacity: 0.5; animation: glitchText 1.5s infinite;">
+        © 1984 NIGHTWAY SYSTEMS INC. | ALL RIGHTS RESERVED
+    </div>
+</div>
+
+<!-- Retro terminal cursor effect -->
+<div style="position: fixed; bottom: 20px; right: 20px; color: #00ff00; font-family: 'Share Tech Mono', monospace; font-size: 1.5rem; animation: blink 1s infinite; text-shadow: 0 0 5px #00ff00;">
+    _
+</div>
+
+<script>
+// Audio context and sounds
+let audioContext;
+let sounds = {};
+
+// Initialize audio
+function initAudio() {
+    try {
+        audioContext = new (window.AudioContext || window.webkitAudioContext)();
+        createSounds();
+    } catch (e) {
+        console.log('Audio not supported');
+    }
+}
+
+// Create sound effects
+function createSounds() {
+    // Button click sound
+    sounds.button = createTone(400, 0.1, 'triangle');
+    
+    // Link hover sound
+    sounds.hover = createTone(600, 0.05, 'sine');
+    
+    // Credits sound
+    sounds.credits = createTone(1000, 0.2, 'square');
+}
+
+// Create a tone
+function createTone(frequency, duration, type = 'sine') {
+    return function() {
+        if (!audioContext) return;
+        
+        const oscillator = audioContext.createOscillator();
+        const gainNode = audioContext.createGain();
+        
+        oscillator.connect(gainNode);
+        gainNode.connect(audioContext.destination);
+        
+        oscillator.frequency.setValueAtTime(frequency, audioContext.currentTime);
+        oscillator.type = type;
+        
+        gainNode.gain.setValueAtTime(0.05, audioContext.currentTime);
+        gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + duration);
+        
+        oscillator.start(audioContext.currentTime);
+        oscillator.stop(audioContext.currentTime + duration);
+    };
+}
+
+// Play sound effect
+function playSound(soundName) {
+    if (sounds[soundName]) {
+        sounds[soundName]();
+    }
+}
+
+// Initialize audio when page loads
+document.addEventListener('DOMContentLoaded', function() {
+    initAudio();
+    
+    // Add sound effects to links
+    const links = document.querySelectorAll('a');
+    links.forEach(link => {
+        link.addEventListener('click', function() {
+            playSound('button');
+        });
+        link.addEventListener('mouseenter', function() {
+            playSound('hover');
+        });
+    });
+    
+    // Add credits sound to page load
+    setTimeout(() => {
+        playSound('credits');
+    }, 300);
+});
+</script>
+</body>
+</html>

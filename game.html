@@ -1,0 +1,388 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Nightway — Play</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Share+Tech+Mono&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    height: 100%;
+    margin: 0;
+    background: #000000;
+    color: #00ff00;
+    font-family: 'Share Tech Mono', monospace;
+    position: relative;
+    overflow-x: hidden;
+    animation: glitchBackground 0.3s infinite;
+}
+
+@keyframes glitchBackground {
+    0%, 100% { 
+        background: #000000;
+    }
+    10% { 
+        background: #001100;
+    }
+    20% { 
+        background: #000000;
+    }
+    30% { 
+        background: #002200;
+    }
+    40% { 
+        background: #000000;
+    }
+    50% { 
+        background: #001100;
+    }
+    60% { 
+        background: #000000;
+    }
+    70% { 
+        background: #002200;
+    }
+    80% { 
+        background: #000000;
+    }
+    90% { 
+        background: #001100;
+    }
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: 
+        repeating-linear-gradient(
+            0deg,
+            transparent,
+            transparent 2px,
+            rgba(0, 255, 0, 0.03) 2px,
+            rgba(0, 255, 0, 0.03) 4px
+        );
+    pointer-events: none;
+    z-index: -1;
+    animation: scanlines 0.1s linear infinite;
+}
+
+/* TV Screen effect */
+body::after {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(ellipse at center, transparent 0%, rgba(0, 0, 0, 0.1) 100%);
+    pointer-events: none;
+    z-index: 1;
+}
+
+@keyframes scanlines {
+    0% { transform: translateY(0); }
+    100% { transform: translateY(4px); }
+}
+
+#gameWrap {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    min-height: 100vh;
+    position: relative;
+    z-index: 2;
+}
+
+canvas {
+    background: #080808;
+    border: 8px solid #333333;
+    border-radius: 8px;
+    box-shadow: 
+        0 0 30px rgba(0, 255, 0, 0.3),
+        inset 0 0 20px rgba(0, 255, 0, 0.1);
+    position: relative;
+    animation: glitchCanvas 0.4s infinite;
+}
+
+@keyframes glitchCanvas {
+    0%, 100% { 
+        transform: translate(0);
+    }
+    10% { 
+        transform: translate(-0.1px, 0.1px);
+    }
+    20% { 
+        transform: translate(0.1px, -0.1px);
+    }
+    30% { 
+        transform: translate(-0.1px, -0.1px);
+    }
+    40% { 
+        transform: translate(0.1px, 0.1px);
+    }
+}
+
+.hud {
+    width: 960px;
+    max-width: 92vw;
+    color: #00ff00;
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 16px;
+    text-shadow: 0 0 1px #00ff00;
+    animation: glitchText 0.5s infinite;
+    background: rgba(0, 255, 0, 0.05);
+    border: 1px solid #00ff00;
+    padding: 15px;
+    border-radius: 0;
+    position: relative;
+    box-shadow: 
+        0 0 10px rgba(0, 255, 0, 0.3),
+        inset 0 0 10px rgba(0, 255, 0, 0.1);
+}
+
+.hud::before {
+    content: '';
+    position: absolute;
+    top: -1px;
+    left: -1px;
+    right: -1px;
+    bottom: -1px;
+    background: #00ff00;
+    border-radius: 0;
+    z-index: -1;
+    animation: borderGlitch 2s linear infinite;
+    opacity: 0.3;
+}
+
+@keyframes borderGlitch {
+    0%, 100% { 
+        background: #00ff00;
+        transform: translate(0);
+    }
+    25% { 
+        background: #00ff00;
+        transform: translate(-0.1px, 0.1px);
+    }
+    50% { 
+        background: #00ff00;
+        transform: translate(0.1px, -0.1px);
+    }
+    75% { 
+        background: #00ff00;
+        transform: translate(-0.1px, -0.1px);
+    }
+}
+
+@keyframes glitchText {
+    0%, 100% { 
+        transform: translate(0);
+    }
+    10% { 
+        transform: translate(-0.1px, 0.1px);
+    }
+    20% { 
+        transform: translate(0.1px, -0.1px);
+    }
+    30% { 
+        transform: translate(-0.1px, -0.1px);
+    }
+    40% { 
+        transform: translate(0.1px, 0.1px);
+    }
+    50% { 
+        transform: translate(0);
+    }
+}
+
+.btn {
+    background: rgba(0, 255, 0, 0.1);
+    padding: 8px 12px;
+    border-radius: 0;
+    color: #00ff00;
+    text-decoration: none;
+    border: 1px solid #00ff00;
+    cursor: pointer;
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 14px;
+    text-shadow: 0 0 0.5px #00ff00;
+    transition: all 0.3s ease;
+    animation: glitchText 0.8s infinite;
+    position: relative;
+    box-shadow: 0 0 5px rgba(0, 255, 0, 0.3);
+}
+
+.btn::before {
+    content: '';
+    position: absolute;
+    top: -1px;
+    left: -1px;
+    right: -1px;
+    bottom: -1px;
+    background: #00ff00;
+    border-radius: 0;
+    z-index: -1;
+    animation: borderGlitch 2s linear infinite;
+    opacity: 0.2;
+}
+
+.btn:hover {
+    background: rgba(0, 255, 0, 0.2);
+    box-shadow: 0 0 10px rgba(0, 255, 0, 0.5);
+    animation: glitchText 0.3s infinite;
+    transform: translateY(-1px);
+}
+
+.btn:active {
+    transform: translateY(0);
+    box-shadow: 0 0 5px rgba(0, 255, 0, 0.3);
+}
+
+#status {
+    font-weight: bold;
+    text-shadow: 0 0 1px #00ff00;
+    animation: glitchText 0.6s infinite;
+}
+
+/* TV Channel indicator */
+.tv-channel {
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    background: rgba(0, 255, 0, 0.1);
+    border: 1px solid #00ff00;
+    padding: 5px 10px;
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.8rem;
+    color: #00ff00;
+    text-shadow: 0 0 1px #00ff00;
+    animation: glitchText 0.5s infinite;
+    z-index: 10;
+}
+
+/* TV Static effect */
+.tv-static {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: 
+        repeating-linear-gradient(
+            45deg,
+            transparent,
+            transparent 1px,
+            rgba(0, 255, 0, 0.01) 1px,
+            rgba(0, 255, 0, 0.01) 2px
+        );
+    pointer-events: none;
+    z-index: 0;
+    animation: static 0.1s linear infinite;
+}
+
+@keyframes static {
+    0% { transform: translate(0, 0); }
+    10% { transform: translate(-0.1px, 0.1px); }
+    20% { transform: translate(0.1px, -0.1px); }
+    30% { transform: translate(-0.1px, -0.1px); }
+    40% { transform: translate(0.1px, 0.1px); }
+    50% { transform: translate(0, 0); }
+    60% { transform: translate(-0.1px, 0.1px); }
+    70% { transform: translate(0.1px, -0.1px); }
+    80% { transform: translate(-0.1px, -0.1px); }
+    90% { transform: translate(0.1px, 0.1px); }
+    100% { transform: translate(0, 0); }
+}
+
+/* Game title */
+.game-title {
+    text-align: center;
+    margin-bottom: 20px;
+    font-family: 'Share Tech Mono', monospace;
+    font-weight: 900;
+    font-size: 2.5rem;
+    color: #00ff00;
+    text-shadow: 
+        0 0 1px #00ff00,
+        0 0 2px #00ff00;
+    position: relative;
+    animation: glitchText 0.3s infinite;
+}
+
+.game-title::before {
+    content: 'NIGHTWAY';
+    position: absolute;
+    top: 0;
+    left: 0;
+    color: #00ff00;
+    z-index: -1;
+    animation: glitchShift 2s infinite;
+    opacity: 0.7;
+}
+
+.game-title::after {
+    content: 'NIGHTWAY';
+    position: absolute;
+    top: 0;
+    left: 0;
+    color: #00ff00;
+    z-index: -2;
+    animation: glitchShift 2s infinite reverse;
+    opacity: 0.5;
+}
+
+@keyframes glitchShift {
+    0%, 100% { transform: translate(0); }
+    20% { transform: translate(-0.2px, 0.2px); }
+    40% { transform: translate(-0.2px, -0.2px); }
+    60% { transform: translate(0.2px, 0.2px); }
+    80% { transform: translate(0.2px, -0.2px); }
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .game-title { font-size: 1.8rem; }
+    .hud { padding: 10px; font-size: 14px; }
+    .btn { padding: 6px 10px; font-size: 12px; }
+    #gameWrap { padding: 10px; }
+}
+</style>
+</head>
+<body>
+<div class="tv-static"></div>
+<div class="tv-channel">CH 13</div>
+
+<div class="game-title">🎮 NIGHTWAY</div>
+
+<div id="gameWrap">
+<canvas id="c" width="960" height="640"></canvas>
+<div class="hud">
+<div id="status">Relics: 0 / 5</div>
+<div style="display:flex;gap:8px">
+<button class="btn" onclick="setGameMode('single')">Single Player</button>
+<button class="btn" onclick="setGameMode('twoPlayer')">Two Player</button>
+<a class="btn" href="index.html">Menu</a>
+<a class="btn" id="restart" href="#" onclick="restart()">Restart</a>
+</div>
+</div>
+</div>
+
+<!-- single JS reference for all pages -->
+<script src="main.js"></script>
+</body>
+</html>
