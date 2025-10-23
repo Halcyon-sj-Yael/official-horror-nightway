@@ -1,488 +1,593 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Nightway — Horror Maze</title>
-<style>
-@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap');
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yael's Profile - Retro Windows</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
+        body {
+            font-family: 'Courier New', 'Monaco', 'Consolas', monospace;
+            font-weight: bold;
+            font-size: 18px;
+            background: #000;
+            background-image: url('cyberpunk-bg.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
 
-body {
-    font-family: 'Orbitron', monospace;
-    background: radial-gradient(circle at center, #0a0a0a 0%, #000000 100%);
-    color: #00ff00;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    min-height: 100vh;
-    overflow: hidden;
-}
+        .desktop {
+            position: relative;
+            min-height: 100vh;
+            padding: 20px;
+        }
 
-/* TV Frame */
-.tv-container {
-    position: relative;
-    width: 900px;
-    height: 600px;
-    max-width: 95vw;
-    max-height: 80vh;
-}
+        .window {
+            background: #c0c0c0;
+            border: 2px outset #c0c0c0;
+            box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+            position: relative;
+            margin: 20px auto;
+            max-width: 1000px;
+        }
 
-.tv-frame {
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(145deg, #2a2a2a, #1a1a1a);
-    border-radius: 20px;
-    padding: 20px;
-    box-shadow: 
-        0 0 30px rgba(0, 255, 0, 0.3),
-        inset 0 0 20px rgba(0, 0, 0, 0.8),
-        0 20px 40px rgba(0, 0, 0, 0.9);
-    border: 3px solid #333;
-    position: relative;
-}
+        .window-header {
+            background: linear-gradient(90deg, #000080, #0000ff);
+            color: white;
+            padding: 4px 6px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 11px;
+            font-weight: bold;
+        }
 
-.tv-screen {
-    width: 100%;
-    height: 100%;
-    background: #000;
-    border-radius: 10px;
-    position: relative;
-    overflow: hidden;
-    border: 2px solid #00ff00;
-}
+        .window-title {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
 
-/* Scan lines effect */
-.tv-screen::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: repeating-linear-gradient(
-        0deg,
-        transparent,
-        transparent 2px,
-        rgba(0, 255, 0, 0.03) 2px,
-        rgba(0, 255, 0, 0.03) 4px
-    );
-    pointer-events: none;
-    z-index: 1;
-}
+        .window-icon {
+            width: 16px;
+            height: 16px;
+            background: #c0c0c0;
+            border: 1px inset #c0c0c0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 10px;
+        }
 
-/* Screen glow */
-.tv-screen::after {
-    content: '';
-    position: absolute;
-    top: -2px;
-    left: -2px;
-    right: -2px;
-    bottom: -2px;
-    background: linear-gradient(45deg, #00ff00, #00cc00, #00ff00);
-    border-radius: 12px;
-    z-index: -1;
-    filter: blur(3px);
-    opacity: 0.3;
-}
+        .window-controls {
+            display: flex;
+            gap: 2px;
+        }
 
-/* Content */
-.tv-content {
-    position: relative;
-    z-index: 2;
-    padding: 40px;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-}
+        .control-btn {
+            width: 16px;
+            height: 14px;
+            background: #c0c0c0;
+            border: 1px outset #c0c0c0;
+            font-size: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
 
-h1 {
-    font-size: 2.5rem;
-    font-weight: 900;
-    margin-bottom: 20px;
-    text-shadow: 
-        0 0 10px #00ff00,
-        0 0 20px #00ff00,
-        0 0 30px #00ff00;
-    letter-spacing: 3px;
-    animation: glow 2s ease-in-out infinite alternate;
-}
+        .control-btn:hover {
+            background: #d4d0c8;
+        }
 
-@keyframes glow {
-    from { text-shadow: 0 0 10px #00ff00, 0 0 20px #00ff00, 0 0 30px #00ff00; }
-    to { text-shadow: 0 0 20px #00ff00, 0 0 30px #00ff00, 0 0 40px #00ff00; }
-}
+        .control-btn:active {
+            border: 1px inset #c0c0c0;
+        }
 
-.subtitle {
-    color: #00cc00;
-    font-size: 1.1rem;
-    margin-bottom: 40px;
-    text-shadow: 0 0 5px #00ff00;
-}
+        .window-content {
+            padding: 30px;
+            background: #c0c0c0;
+        }
 
-.menu-container {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-    width: 100%;
-    max-width: 400px;
-}
+        .profile-section {
+            text-align: center;
+            margin-bottom: 30px;
+        }
 
-.menu-item {
-    background: linear-gradient(145deg, #111, #000);
-    border: 2px solid #00ff00;
-    border-radius: 8px;
-    padding: 15px 25px;
-    color: #00ff00;
-    text-decoration: none;
-    font-size: 1.2rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    transition: all 0.3s ease;
-    position: relative;
-    overflow: hidden;
-    cursor: pointer;
-    box-shadow: 0 0 10px rgba(0, 255, 0, 0.3);
-}
+        .profile-title {
+            font-size: 32px;
+            font-weight: bold;
+            color: #000080;
+            margin-bottom: 15px;
+            text-shadow: 1px 1px 0px #ffffff;
+        }
 
-.menu-item::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(0, 255, 0, 0.2), transparent);
-    transition: left 0.5s ease;
-}
+        .profile-subtitle {
+            font-size: 18px;
+            color: #000000;
+            margin-bottom: 25px;
+        }
 
-.menu-item:hover::before {
-    left: 100%;
-}
+        .profile-image {
+            width: 160px;
+            height: 160px;
+            border: 2px inset #c0c0c0;
+            margin: 0 auto 25px;
+            background: #ffffff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            color: #808080;
+        }
 
-.menu-item:hover {
-    background: linear-gradient(145deg, #001100, #000);
-    box-shadow: 
-        0 0 20px rgba(0, 255, 0, 0.6),
-        inset 0 0 20px rgba(0, 255, 0, 0.1);
-    transform: translateY(-2px);
-    text-shadow: 0 0 10px #00ff00;
-}
+        .description {
+            background: #ffffff;
+            border: 1px inset #c0c0c0;
+            padding: 35px;
+            margin: 25px 0;
+            font-size: 18px;
+            line-height: 1.7;
+            text-align: left;
+        }
 
-.menu-item:active {
-    transform: translateY(0);
-    box-shadow: 0 0 15px rgba(0, 255, 0, 0.8);
-}
+        .interests-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
 
-/* Settings Panel */
-.settings-panel {
-    position: absolute;
-    top: 20px;
-    right: 20px;
-    background: rgba(0, 0, 0, 0.8);
-    border: 1px solid #00ff00;
-    border-radius: 8px;
-    padding: 15px;
-    z-index: 10;
-}
+        .interest-item {
+            background: #ffffff;
+            border: 1px inset #c0c0c0;
+            padding: 10px;
+            text-align: center;
+            font-size: 11px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
 
-.settings-toggle {
-    background: none;
-    border: 1px solid #00ff00;
-    color: #00ff00;
-    padding: 8px 12px;
-    border-radius: 4px;
-    cursor: pointer;
-    font-family: 'Orbitron', monospace;
-    font-size: 0.9rem;
-    transition: all 0.3s ease;
-}
+        .interest-item:hover {
+            background: #d4d0c8;
+        }
 
-.settings-toggle:hover {
-    background: rgba(0, 255, 0, 0.1);
-    box-shadow: 0 0 10px rgba(0, 255, 0, 0.3);
-}
+        .interest-item:active {
+            border: 1px outset #c0c0c0;
+        }
 
-.volume-control {
-    display: none;
-    margin-top: 10px;
-    flex-direction: column;
-    gap: 10px;
-}
+        .interest-icon {
+            font-size: 24px;
+            margin-bottom: 5px;
+            display: block;
+        }
 
-.volume-control.show {
-    display: flex;
-}
+        .art-gallery {
+            margin-top: 30px;
+        }
 
-.volume-label {
-    color: #00ff00;
-    font-size: 0.9rem;
-    text-align: center;
-}
+        .gallery-title {
+            font-size: 20px;
+            font-weight: bold;
+            color: #000080;
+            margin-bottom: 20px;
+            text-align: center;
+        }
 
-.volume-slider {
-    width: 100%;
-    height: 6px;
-    background: #333;
-    border-radius: 3px;
-    outline: none;
-    -webkit-appearance: none;
-}
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 15px;
+            margin: 25px 0;
+        }
 
-.volume-slider::-webkit-slider-thumb {
-    -webkit-appearance: none;
-    width: 18px;
-    height: 18px;
-    background: #00ff00;
-    border-radius: 50%;
-    cursor: pointer;
-    box-shadow: 0 0 10px rgba(0, 255, 0, 0.5);
-}
+        .art-item {
+            background: #ffffff;
+            border: 2px outset #c0c0c0;
+            padding: 15px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            min-height: 150px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
 
-.volume-slider::-moz-range-thumb {
-    width: 18px;
-    height: 18px;
-    background: #00ff00;
-    border-radius: 50%;
-    cursor: pointer;
-    border: none;
-    box-shadow: 0 0 10px rgba(0, 255, 0, 0.5);
-}
+        .art-item:hover {
+            background: #d4d0c8;
+            border: 2px inset #c0c0c0;
+        }
 
-/* TV Controls */
-.tv-controls {
-    position: absolute;
-    bottom: 20px;
-    left: 20px;
-    right: 20px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
+        .art-item:active {
+            border: 2px inset #c0c0c0;
+        }
 
-.power-button {
-    width: 40px;
-    height: 40px;
-    background: radial-gradient(circle, #ff0000, #cc0000);
-    border: 2px solid #333;
-    border-radius: 50%;
-    cursor: pointer;
-    box-shadow: 0 0 10px rgba(255, 0, 0, 0.3);
-    transition: all 0.3s ease;
-}
+        .art-image {
+            width: 100px;
+            height: 100px;
+            background: #c0c0c0;
+            border: 1px inset #c0c0c0;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            color: #808080;
+        }
 
-.power-button:hover {
-    box-shadow: 0 0 15px rgba(255, 0, 0, 0.6);
-    transform: scale(1.1);
-}
+        .art-title {
+            font-size: 12px;
+            font-weight: bold;
+            color: #000000;
+        }
 
-.channel-display {
-    color: #00ff00;
-    font-size: 1.2rem;
-    font-weight: 700;
-    text-shadow: 0 0 5px #00ff00;
-}
+        .taskbar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: #c0c0c0;
+            border-top: 1px solid #ffffff;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            padding: 0 5px;
+            z-index: 1000;
+        }
 
-/* Responsive */
-@media (max-width: 768px) {
-    .tv-container {
-        width: 95vw;
-        height: 70vh;
-    }
-    
-    h1 {
-        font-size: 2rem;
-    }
-    
-    .menu-item {
-        font-size: 1rem;
-        padding: 12px 20px;
-    }
-    
-    .tv-content {
-        padding: 20px;
-    }
-}
+        .start-button {
+            background: #c0c0c0;
+            border: 1px outset #c0c0c0;
+            padding: 2px 8px;
+            font-size: 11px;
+            font-weight: bold;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
 
-/* Flicker effect */
-@keyframes flicker {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0.98; }
-}
+        .start-button:hover {
+            background: #d4d0c8;
+        }
 
-.tv-screen {
-    animation: flicker 0.15s infinite linear;
-}
-</style>
+        .start-button:active {
+            border: 1px inset #c0c0c0;
+        }
+
+        .clock {
+            margin-left: auto;
+            font-size: 11px;
+            color: #000000;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 2000;
+        }
+
+        .modal-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: #c0c0c0;
+            border: 2px outset #c0c0c0;
+            padding: 20px;
+            max-width: 500px;
+            width: 90%;
+        }
+
+        .modal-header {
+            background: linear-gradient(90deg, #000080, #0000ff);
+            color: white;
+            padding: 4px 6px;
+            margin: -20px -20px 15px -20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 11px;
+            font-weight: bold;
+        }
+
+        .close-btn {
+            background: #c0c0c0;
+            border: 1px outset #c0c0c0;
+            width: 16px;
+            height: 14px;
+            font-size: 10px;
+            cursor: pointer;
+        }
+
+        .close-btn:hover {
+            background: #d4d0c8;
+        }
+
+        .close-btn:active {
+            border: 1px inset #c0c0c0;
+        }
+
+        @media (max-width: 768px) {
+            .desktop {
+                padding: 10px;
+            }
+            
+            .window {
+                margin: 10px auto;
+            }
+            
+            .gallery-grid {
+                grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+            }
+        }
+    </style>
 </head>
 <body>
-<div class="tv-container">
-    <div class="tv-frame">
-        <div class="tv-screen">
-            <div class="tv-content">
-                <h1>NIGHTWAY</h1>
-                <div class="subtitle">HORROR MAZE</div>
-                
-                <div class="menu-container">
-                    <a class="menu-item" href="game.html">Start Game</a>
-                    <a class="menu-item" href="instructions.html">How to Play</a>
-                    <a class="menu-item" href="credits.html">Credits</a>
+    <div class="desktop">
+        <!-- Main Profile Window -->
+        <div class="window">
+            <div class="window-header">
+                <div class="window-title">
+                    <div class="window-icon">
+                        <img src="profile-photo.jpg" alt="Yael Rubio" style="width: 100%; height: 100%; object-fit: cover;">
+                    </div>
+                    Yael's Profile
+                </div>
+                <div class="window-controls">
+                    <div class="control-btn" onclick="minimizeWindow()">_</div>
+                    <div class="control-btn" onclick="maximizeWindow()">□</div>
+                    <div class="control-btn" onclick="closeWindow()">×</div>
                 </div>
             </div>
-            
-            <!-- Settings Panel -->
-            <div class="settings-panel">
-                <button class="settings-toggle" onclick="toggleSettings()">⚙️ Settings</button>
-                <div class="volume-control" id="volumeControl">
-                    <div class="volume-label">Volume</div>
-                    <input type="range" class="volume-slider" id="volumeSlider" min="0" max="100" value="50">
+            <div class="window-content">
+                <div class="profile-section">
+                    <h1 class="profile-title">YAEL RUBIO</h1>
+                    <p class="profile-subtitle">Digital Media Artist</p>
+                    <div class="profile-image">
+                        <img src="profile-photo.jpg" alt="Yael Rubio" style="width: 100%; height: 100%; object-fit: cover; border: 1px inset #c0c0c0;">
+                    </div>
                 </div>
-            </div>
-            
-            <!-- TV Controls -->
-            <div class="tv-controls">
-                <div class="power-button" onclick="togglePower()"></div>
-                <div class="channel-display">CH 13</div>
+
+                <div class="description">
+                    <strong>About Me:</strong><br><br>
+                    Hey there! I'm Yael, a digital media artist who's passionate about creating. 
+                    When I'm not coding or designing, you'll find me hanging out with friends, diving deep into video games, 
+                    watching movies (especially sci-fi and Horror), and discovering new music across all genres. 
+                    I love the intersection of technology and creativity, and I'm always excited to explore new ways 
+                    to bring ideas to life through digital art and game development.
+                </div>
+
+
+                <div class="art-gallery">
+                    <h2 class="gallery-title">Click on My Art</h2>
+                    <div class="gallery-grid">
+                        <div class="art-item" onclick="showArt('digital-painting')">
+                            <div class="art-image">
+                                <img src="digitalart/My charecter.jpeg" alt="My Character" style="width: 100%; height: 100%; object-fit: cover; border: 1px inset #c0c0c0;">
+                            </div>
+                            <div class="art-title">Digital Art</div>
+                        </div>
+                        <div class="art-item" onclick="showArt('3d-model')">
+                            <div class="art-image">
+                                <img src="3d-module/Nature's Return.jpeg" alt="Nature's Return 3D Model" style="width: 100%; height: 100%; object-fit: cover; border: 1px inset #c0c0c0;">
+                            </div>
+                            <div class="art-title">3D Model</div>
+                        </div>
+                        <div class="art-item" onclick="showArt('game-asset')">
+                            <div class="art-image">
+                                <img src="Nightway.jpg" alt="Nightway Game" style="width: 100%; height: 100%; object-fit: cover; border: 1px inset #c0c0c0;">
+                            </div>
+                            <div class="art-title">Game Asset</div>
+                        </div>
+                        <div class="art-item" onclick="showArt('concept-art')">
+                            <div class="art-image">
+                                <img src="concept-art/Skull Head.jpeg" alt="Skull Head Concept Art" style="width: 100%; height: 100%; object-fit: cover; border: 1px inset #c0c0c0;">
+                            </div>
+                            <div class="art-title">Concept Art</div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
-</div>
 
-<script>
-// Audio context and sounds
-let audioContext;
-let sounds = {};
+    <!-- Taskbar -->
+    <div class="taskbar">
+        <div class="clock" id="clock"></div>
+    </div>
 
-// Initialize audio
-function initAudio() {
-    try {
-        audioContext = new (window.AudioContext || window.webkitAudioContext)();
-        createSounds();
-    } catch (e) {
-        console.log('Audio not supported');
-    }
-}
+    <!-- Modal for Art Details -->
+    <div class="modal" id="artModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <span id="modalTitle">Art Details</span>
+                <button class="close-btn" onclick="closeModal()">×</button>
+            </div>
+            <div id="modalContent">
+                <!-- Content will be populated by JavaScript -->
+            </div>
+        </div>
+    </div>
 
-// Create sound effects
-function createSounds() {
-    // Button click sound
-    sounds.button = createTone(400, 0.1, 'triangle');
-    
-    // Menu hover sound
-    sounds.hover = createTone(600, 0.05, 'sine');
-    
-    // TV static sound
-    sounds.static = createTone(200, 0.2, 'sawtooth');
-    
-    // Settings sound
-    sounds.settings = createTone(800, 0.15, 'square');
-}
+    <script>
+        // Update clock
+        function updateClock() {
+            const now = new Date();
+            const timeString = now.toLocaleTimeString();
+            document.getElementById('clock').textContent = timeString;
+        }
 
-// Create a tone
-function createTone(frequency, duration, type = 'sine') {
-    return function() {
-        if (!audioContext) return;
-        
-        const oscillator = audioContext.createOscillator();
-        const gainNode = audioContext.createGain();
-        
-        oscillator.connect(gainNode);
-        gainNode.connect(audioContext.destination);
-        
-        oscillator.frequency.setValueAtTime(frequency, audioContext.currentTime);
-        oscillator.type = type;
-        
-        gainNode.gain.setValueAtTime(0.05, audioContext.currentTime);
-        gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + duration);
-        
-        oscillator.start(audioContext.currentTime);
-        oscillator.stop(audioContext.currentTime + duration);
-    };
-}
+        setInterval(updateClock, 1000);
+        updateClock();
 
-// Play sound effect
-function playSound(soundName) {
-    if (sounds[soundName]) {
-        sounds[soundName]();
-    }
-}
+        // Window controls
+        function minimizeWindow() {
+            alert('Window minimized! (This would minimize the window in a real app)');
+        }
 
-let isSettingsOpen = false;
-let isPowerOn = true;
+        function maximizeWindow() {
+            alert('Window maximized! (This would maximize the window in a real app)');
+        }
 
-function toggleSettings() {
-    isSettingsOpen = !isSettingsOpen;
-    const volumeControl = document.getElementById('volumeControl');
-    if (isSettingsOpen) {
-        volumeControl.classList.add('show');
-    } else {
-        volumeControl.classList.remove('show');
-    }
-    playSound('settings');
-}
+        function closeWindow() {
+            if (confirm('Are you sure you want to close this window?')) {
+                alert('Window closed! (This would close the window in a real app)');
+            }
+        }
 
-function togglePower() {
-    isPowerOn = !isPowerOn;
-    const tvScreen = document.querySelector('.tv-screen');
-    if (isPowerOn) {
-        tvScreen.style.animation = 'flicker 0.15s infinite linear';
-    } else {
-        tvScreen.style.animation = 'none';
-        tvScreen.style.background = '#000';
-    }
-    playSound('static');
-}
 
-// Volume control
-const volumeSlider = document.getElementById('volumeSlider');
-volumeSlider.addEventListener('input', function() {
-    // Here you would typically control actual audio volume
-    console.log('Volume set to:', this.value + '%');
-});
+        // Interest details
+        function showInterest(type) {
+            const messages = {
+                'games': 'I love creating games using Unity, Godot, and web technologies. My favorite genres are puzzle games and interactive experiences!',
+                'hanging': 'I enjoy spending time with friends, whether it\'s going to cafes, exploring the city, or just chilling at home with good company.',
+                'playing': 'I\'m into all kinds of games - from indie pixel art games to AAA titles. Currently playing through some retro classics!',
+                'movies': 'I\'m a huge movie buff! I love sci-fi, indie films, and anything with great storytelling and visual effects.',
+                'music': 'Music is a big part of my life. I listen to everything from electronic to rock, and I love discovering new artists and genres.'
+            };
+            alert(messages[type] || 'Thanks for your interest!');
+        }
 
-// Add some retro sound effects (optional)
-document.addEventListener('DOMContentLoaded', function() {
-    // Initialize audio
-    initAudio();
-    
-    // Add click sound effects for menu items
-    const menuItems = document.querySelectorAll('.menu-item');
-    menuItems.forEach(item => {
-        item.addEventListener('click', function(e) {
-            playSound('button');
-            // Add a brief visual feedback
-            this.style.transform = 'scale(0.95)';
-            setTimeout(() => {
-                this.style.transform = '';
-            }, 100);
+        // Art gallery
+        function showArt(artType) {
+            // Navigate to digital art page when clicking on digital art
+            if (artType === 'digital-painting') {
+                playClickSound();
+                setTimeout(() => {
+                    window.location.href = 'digitalart.html';
+                }, 100);
+                return;
+            }
+
+            // Navigate to 3D module page when clicking on 3D model
+            if (artType === '3d-model') {
+                playClickSound();
+                setTimeout(() => {
+                    window.location.href = '3d-module.html';
+                }, 100);
+                return;
+            }
+
+            // Navigate to game assets page when clicking on game asset
+            if (artType === 'game-asset') {
+                playClickSound();
+                setTimeout(() => {
+                    window.location.href = 'game-assest.html';
+                }, 100);
+                return;
+            }
+
+            // Navigate to concept art page when clicking on concept art
+            if (artType === 'concept-art') {
+                playClickSound();
+                setTimeout(() => {
+                    window.location.href = 'concept-art.html';
+                }, 100);
+                return;
+            }
+
+            const artDetails = {
+                'digital-painting': {
+                    title: 'Digital Painting',
+                    description: 'This is one of my digital Art created using Photoshop and Procreate. I love experimenting with different brushes and color palettes to create unique visual experiences.',
+                    details: 'Created with: Adobe Photoshop, Procreate\nTime: 8 hours\nStyle: Digital Art'
+                },
+                'pixel-art': {
+                    title: 'Pixel Art',
+                    description: 'A retro-style pixel art piece that captures the nostalgic feel of classic video games. Every pixel was carefully placed to create this detailed scene.',
+                    details: 'Created with: Aseprite\nResolution: 64x64 pixels\nStyle: Pixel Art'
+                },
+                '3d-model': {
+                    title: '3D Model',
+                    description: 'A 3D model I created.',
+                    details: 'Created with: Blender\nPolygons: 2,500\nStyle: Low-poly'
+                },
+                'animation': {
+                    title: 'Animation',
+                    description: 'A short animation sequence showing character movement and interaction. I love bringing static images to life through motion.',
+                    details: 'Created with: After Effects\nDuration: 5 seconds\nStyle: 2D Animation'
+                },
+                'game-asset': {
+                    title: 'Game Asset',
+                    description: 'UI elements and icons designed for a mobile game. Clean, modern design that fits the game\'s aesthetic perfectly.',
+                    details: 'Created with: Figma\nFormat: SVG\nStyle: Flat Design'
+                },
+                'concept-art': {
+                    title: 'Concept Art',
+                    description: 'Concept sketches project for myself.',
+                    details: 'Created with: Procreate\nTime: 3 hours\nStyle: Concept Art'
+                },
+                'ui-design': {
+                    title: 'UI Design',
+                    description: 'A complete user interface design for a web application. Focus on usability and visual hierarchy.',
+                    details: 'Created with: Figma\nPages: 12\nStyle: Modern UI'
+                },
+                'logo-design': {
+                    title: 'Logo Design',
+                    description: 'A brand identity design including logo variations and color schemes. Clean, memorable, and versatile.',
+                    details: 'Created with: Illustrator\nVariations: 5\nStyle: Minimalist'
+                }
+            };
+
+            const art = artDetails[artType];
+            if (art) {
+                document.getElementById('modalTitle').textContent = art.title;
+                document.getElementById('modalContent').innerHTML = `
+                    <p><strong>Description:</strong></p>
+                    <p>${art.description}</p>
+                    <br>
+                    <p><strong>Details:</strong></p>
+                    <pre>${art.details}</pre>
+                `;
+                document.getElementById('artModal').style.display = 'block';
+            }
+        }
+
+        function closeModal() {
+            document.getElementById('artModal').style.display = 'none';
+        }
+
+        // Close modal when clicking outside
+        window.onclick = function(event) {
+            const modal = document.getElementById('artModal');
+            if (event.target === modal) {
+                closeModal();
+            }
+        }
+
+        // Game start sound effect
+        function playClickSound() {
+            const audio = new Audio('game-start-6104.mp3');
+            audio.volume = 0.3; // Set volume to 30%
+            audio.play().catch(e => {
+                console.log('Audio play failed:', e);
+            });
+        }
+
+        // Add click sounds to interactive elements
+        document.addEventListener('DOMContentLoaded', function() {
+            const clickableElements = document.querySelectorAll('.interest-item, .art-item, .control-btn');
+            clickableElements.forEach(element => {
+                element.addEventListener('click', playClickSound);
+            });
         });
-        
-        // Add hover sound
-        item.addEventListener('mouseenter', function() {
-            playSound('hover');
-        });
-    });
-    
-    // Add sound effects to buttons
-    const buttons = document.querySelectorAll('.btn');
-    buttons.forEach(button => {
-        button.addEventListener('click', function() {
-            playSound('button');
-        });
-        button.addEventListener('mouseenter', function() {
-            playSound('hover');
-        });
-    });
-});
-</script>
+    </script>
 </body>
 </html>

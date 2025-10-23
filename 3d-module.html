@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3D Models - Yael's Portfolio</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Courier New', 'Monaco', 'Consolas', monospace;
+            font-weight: bold;
+            font-size: 18px;
+            background: #000;
+            background-image: url('3d-module.gif');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .desktop {
+            position: relative;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .window {
+            background: #c0c0c0;
+            border: 2px outset #c0c0c0;
+            box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+            position: relative;
+            margin: 20px auto;
+            max-width: 1000px;
+        }
+
+        .window-header {
+            background: linear-gradient(90deg, #000080, #0000ff);
+            color: white;
+            padding: 4px 6px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 11px;
+            font-weight: bold;
+        }
+
+        .window-title {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .window-icon {
+            width: 16px;
+            height: 16px;
+            background: #c0c0c0;
+            border: 1px inset #c0c0c0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 10px;
+        }
+
+        .window-controls {
+            display: flex;
+            gap: 2px;
+        }
+
+        .control-btn {
+            width: 16px;
+            height: 14px;
+            background: #c0c0c0;
+            border: 1px outset #c0c0c0;
+            font-size: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+
+        .control-btn:hover {
+            background: #d4d0c8;
+        }
+
+        .control-btn:active {
+            border: 1px inset #c0c0c0;
+        }
+
+        .window-content {
+            padding: 30px;
+            background: #c0c0c0;
+        }
+
+        .page-title {
+            font-size: 28px;
+            font-weight: bold;
+            color: #000080;
+            margin-bottom: 20px;
+            text-align: center;
+            text-shadow: 1px 1px 0px #ffffff;
+        }
+
+        .model-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+            margin: 30px 0;
+        }
+
+        .model-item {
+            background: #ffffff;
+            border: 2px outset #c0c0c0;
+            padding: 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            min-height: 280px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .model-item:hover {
+            background: #d4d0c8;
+            border: 2px inset #c0c0c0;
+        }
+
+        .model-item:active {
+            border: 2px inset #c0c0c0;
+        }
+
+        .model-preview {
+            width: 200px;
+            height: 200px;
+            background: #c0c0c0;
+            border: 1px inset #c0c0c0;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            color: #808080;
+            transition: transform 0.3s ease;
+        }
+
+        .model-preview:hover {
+            transform: rotate(5deg) scale(1.05);
+        }
+
+        .model-name {
+            font-size: 14px;
+            font-weight: bold;
+            color: #000000;
+            margin-bottom: 5px;
+        }
+
+        .model-description {
+            font-size: 11px;
+            color: #666666;
+            line-height: 1.3;
+        }
+
+        .back-button {
+            background: #c0c0c0;
+            border: 2px outset #c0c0c0;
+            padding: 8px 16px;
+            font-size: 12px;
+            cursor: pointer;
+            margin: 20px 0;
+            display: inline-block;
+        }
+
+        .back-button:hover {
+            background: #d4d0c8;
+        }
+
+        .back-button:active {
+            border: 2px inset #c0c0c0;
+        }
+
+        .taskbar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: #c0c0c0;
+            border-top: 1px solid #ffffff;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            padding: 0 5px;
+            z-index: 1000;
+        }
+
+        .start-button {
+            background: #c0c0c0;
+            border: 1px outset #c0c0c0;
+            padding: 2px 8px;
+            font-size: 11px;
+            font-weight: bold;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .start-button:hover {
+            background: #d4d0c8;
+        }
+
+        .start-button:active {
+            border: 1px inset #c0c0c0;
+        }
+
+        .clock {
+            margin-left: auto;
+            font-size: 11px;
+            color: #000000;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 2000;
+        }
+
+        .modal-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: #c0c0c0;
+            border: 2px outset #c0c0c0;
+            padding: 20px;
+            max-width: 600px;
+            width: 90%;
+        }
+
+        .modal-header {
+            background: linear-gradient(90deg, #000080, #0000ff);
+            color: white;
+            padding: 4px 6px;
+            margin: -20px -20px 15px -20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 11px;
+            font-weight: bold;
+        }
+
+        .close-btn {
+            background: #c0c0c0;
+            border: 1px outset #c0c0c0;
+            width: 16px;
+            height: 14px;
+            font-size: 10px;
+            cursor: pointer;
+        }
+
+        .close-btn:hover {
+            background: #d4d0c8;
+        }
+
+        .close-btn:active {
+            border: 1px inset #c0c0c0;
+        }
+
+        @media (max-width: 768px) {
+            .desktop {
+                padding: 10px;
+            }
+            
+            .window {
+                margin: 10px auto;
+            }
+            
+            .model-gallery {
+                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="desktop">
+        <!-- 3D Models Window -->
+        <div class="window">
+            <div class="window-header">
+                <div class="window-title">
+                    <div class="window-icon">
+                        <img src="3d-module/Donut Base.jpg" alt="Donut 3D Model" style="width: 100%; height: 100%; object-fit: cover;">
+                    </div>
+                    3D Models Gallery
+                </div>
+                <div class="window-controls">
+                    <div class="control-btn" onclick="minimizeWindow()">_</div>
+                    <div class="control-btn" onclick="maximizeWindow()">□</div>
+                    <div class="control-btn" onclick="closeWindow()">×</div>
+                </div>
+            </div>
+            <div class="window-content">
+                <h1 class="page-title">3D MODELS COLLECTION</h1>
+                
+                <button class="back-button" onclick="goBack()">← Back to Profile</button>
+
+                <div class="model-gallery">
+                    <div class="model-item" onclick="showModelDetail('donut-model')">
+                        <div class="model-preview">
+                            <img src="3d-module/Donut Base.jpg" alt="Donut 3D Model" style="width: 100%; height: 100%; object-fit: cover; border: 1px inset #c0c0c0;">
+                        </div>
+                        <div class="model-name">Donut Model</div>
+                        <div class="model-description">Stylized 3D donut with pink frosting and colorful sprinkles</div>
+                    </div>
+
+                    <div class="model-item" onclick="showModelDetail('nature-return')">
+                        <div class="model-preview">
+                            <img src="3d-module/Nature's Return.jpeg" alt="Nature's Return 3D Model" style="width: 100%; height: 100%; object-fit: cover; border: 1px inset #c0c0c0;">
+                        </div>
+                        <div class="model-name">Nature's Return</div>
+                        <div class="model-description">Macabre still life with skull and natural elements</div>
+                    </div>
+
+                    <div class="model-item" onclick="showModelDetail('yr-letters')">
+                        <div class="model-preview">
+                            <img src="3d-module/Y and R (The Uper light).jpg" alt="Y and R Letters 3D Model" style="width: 100%; height: 100%; object-fit: cover; border: 1px inset #c0c0c0;">
+                        </div>
+                        <div class="model-name">Y & R Letters</div>
+                        <div class="model-description">Stylized 3D letters with glossy yellow finish</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Taskbar -->
+    <div class="taskbar">
+        <div class="clock" id="clock"></div>
+    </div>
+
+    <!-- Modal for Model Details -->
+    <div class="modal" id="modelModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <span id="modalTitle">Model Details</span>
+                <button class="close-btn" onclick="closeModal()">×</button>
+            </div>
+            <div id="modalContent">
+                <!-- Content will be populated by JavaScript -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Update clock
+        function updateClock() {
+            const now = new Date();
+            const timeString = now.toLocaleTimeString();
+            document.getElementById('clock').textContent = timeString;
+        }
+
+        setInterval(updateClock, 1000);
+        updateClock();
+
+        // Window controls
+        function minimizeWindow() {
+            alert('Window minimized! (This would minimize the window in a real app)');
+        }
+
+        function maximizeWindow() {
+            alert('Window maximized! (This would maximize the window in a real app)');
+        }
+
+        function closeWindow() {
+            if (confirm('Are you sure you want to close this window?')) {
+                window.location.href = 'index.html';
+            }
+        }
+
+
+        function goBack() {
+            playClickSound();
+            setTimeout(() => {
+                window.location.href = 'index.html';
+            }, 100);
+        }
+
+        // Model details
+        function showModelDetail(modelType) {
+            const modelDetails = {
+                'donut-model': {
+                    title: 'Donut Model',
+                    imagePath: '3d-module/Donut Base.jpg',
+                    description: 'A stylized 3D donut model featuring a golden-brown base with thick pink frosting and colorful sprinkles. The model demonstrates excellent texturing skills and attention to detail, with realistic lighting and material properties that make it appear appetizing and visually appealing.',
+                    details: 'Created with: Blender\nPolygons: 2,500\nTextures: 2K\nMaterials: PBR Shading\nRendering: Cycles\nStyle: Stylized Food Model'
+                },
+                'nature-return': {
+                    title: 'Nature\'s Return',
+                    imagePath: '3d-module/Nature\'s Return.jpeg',
+                    description: 'A macabre yet artistic 3D still life composition featuring a stylized skull surrounded by natural elements including moss, lichen, and wood pieces. This piece explores themes of nature reclaiming man-made objects and demonstrates strong composition and atmospheric lighting skills.',
+                    details: 'Created with: Blender\nPolygons: 8,000\nTextures: 4K\nLighting: Atmospheric\nMaterials: Organic\nStyle: Dark Art Still Life'
+                },
+                'yr-letters': {
+                    title: 'Y & R Letters',
+                    imagePath: '3d-module/Y and R (The Uper light).jpg',
+                    description: 'Stylized 3D letters "Y" and "R" rendered in a vibrant glossy yellow finish. The model features sharp, angular edges with a futuristic design aesthetic, demonstrating strong typography skills and material rendering capabilities.',
+                    details: 'Created with: Blender\nPolygons: 1,200\nMaterials: Glossy Plastic\nLighting: Studio Setup\nRendering: Cycles\nStyle: Modern Typography'
+                }
+            };
+
+            const model = modelDetails[modelType];
+            if (model) {
+                document.getElementById('modalTitle').textContent = model.title;
+                document.getElementById('modalContent').innerHTML = `
+                    <div style="text-align: center; margin-bottom: 20px;">
+                        <img src="${model.imagePath}" alt="${model.title}" style="max-width: 300px; max-height: 300px; border: 2px inset #c0c0c0; box-shadow: 2px 2px 5px rgba(0,0,0,0.3);">
+                    </div>
+                    <p><strong>Description:</strong></p>
+                    <p>${model.description}</p>
+                    <br>
+                    <p><strong>Technical Details:</strong></p>
+                    <pre>${model.details}</pre>
+                `;
+                document.getElementById('modelModal').style.display = 'block';
+            }
+        }
+
+        function closeModal() {
+            document.getElementById('modelModal').style.display = 'none';
+        }
+
+        // Close modal when clicking outside
+        window.onclick = function(event) {
+            const modal = document.getElementById('modelModal');
+            if (event.target === modal) {
+                closeModal();
+            }
+        }
+
+        // Game start sound effect
+        function playClickSound() {
+            const audio = new Audio('game-start-6104.mp3');
+            audio.volume = 0.3;
+            audio.play().catch(e => {
+                console.log('Audio play failed:', e);
+            });
+        }
+
+        // Add click sounds to interactive elements
+        document.addEventListener('DOMContentLoaded', function() {
+            const clickableElements = document.querySelectorAll('.model-item, .control-btn, .back-button');
+            clickableElements.forEach(element => {
+                element.addEventListener('click', playClickSound);
+            });
+        });
+    </script>
+</body>
+</html>

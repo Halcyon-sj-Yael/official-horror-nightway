@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Digital Art - Yael's Portfolio</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Courier New', 'Monaco', 'Consolas', monospace;
+            font-weight: bold;
+            font-size: 18px;
+            background: #000;
+            background-image: url('digitalart.gif');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .desktop {
+            position: relative;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .window {
+            background: #c0c0c0;
+            border: 2px outset #c0c0c0;
+            box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+            position: relative;
+            margin: 20px auto;
+            max-width: 1000px;
+        }
+
+        .window-header {
+            background: linear-gradient(90deg, #000080, #0000ff);
+            color: white;
+            padding: 4px 6px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 11px;
+            font-weight: bold;
+        }
+
+        .window-title {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .window-icon {
+            width: 16px;
+            height: 16px;
+            background: #c0c0c0;
+            border: 1px inset #c0c0c0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 10px;
+        }
+
+        .window-controls {
+            display: flex;
+            gap: 2px;
+        }
+
+        .control-btn {
+            width: 16px;
+            height: 14px;
+            background: #c0c0c0;
+            border: 1px outset #c0c0c0;
+            font-size: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+
+        .control-btn:hover {
+            background: #d4d0c8;
+        }
+
+        .control-btn:active {
+            border: 1px inset #c0c0c0;
+        }
+
+        .window-content {
+            padding: 30px;
+            background: #c0c0c0;
+        }
+
+        .page-title {
+            font-size: 28px;
+            font-weight: bold;
+            color: #000080;
+            margin-bottom: 20px;
+            text-align: center;
+            text-shadow: 1px 1px 0px #ffffff;
+        }
+
+        .art-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+            margin: 30px 0;
+        }
+
+        .art-piece {
+            background: #ffffff;
+            border: 2px outset #c0c0c0;
+            padding: 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            min-height: 280px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .art-piece:hover {
+            background: #d4d0c8;
+            border: 2px inset #c0c0c0;
+        }
+
+        .art-piece:active {
+            border: 2px inset #c0c0c0;
+        }
+
+        .art-preview {
+            width: 200px;
+            height: 200px;
+            background: #c0c0c0;
+            border: 1px inset #c0c0c0;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            color: #808080;
+            transition: transform 0.3s ease;
+        }
+
+        .art-preview:hover {
+            transform: rotate(5deg) scale(1.05);
+        }
+
+        .art-name {
+            font-size: 14px;
+            font-weight: bold;
+            color: #000000;
+            margin-bottom: 5px;
+        }
+
+        .art-description {
+            font-size: 11px;
+            color: #666666;
+            line-height: 1.3;
+        }
+
+        .back-button {
+            background: #c0c0c0;
+            border: 2px outset #c0c0c0;
+            padding: 8px 16px;
+            font-size: 12px;
+            cursor: pointer;
+            margin: 20px 0;
+            display: inline-block;
+        }
+
+        .back-button:hover {
+            background: #d4d0c8;
+        }
+
+        .back-button:active {
+            border: 2px inset #c0c0c0;
+        }
+
+        .taskbar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: #c0c0c0;
+            border-top: 1px solid #ffffff;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            padding: 0 5px;
+            z-index: 1000;
+        }
+
+        .start-button {
+            background: #c0c0c0;
+            border: 1px outset #c0c0c0;
+            padding: 2px 8px;
+            font-size: 11px;
+            font-weight: bold;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .start-button:hover {
+            background: #d4d0c8;
+        }
+
+        .start-button:active {
+            border: 1px inset #c0c0c0;
+        }
+
+        .clock {
+            margin-left: auto;
+            font-size: 11px;
+            color: #000000;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 2000;
+        }
+
+        .modal-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: #c0c0c0;
+            border: 2px outset #c0c0c0;
+            padding: 20px;
+            max-width: 600px;
+            width: 90%;
+        }
+
+        .modal-header {
+            background: linear-gradient(90deg, #000080, #0000ff);
+            color: white;
+            padding: 4px 6px;
+            margin: -20px -20px 15px -20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 11px;
+            font-weight: bold;
+        }
+
+        .close-btn {
+            background: #c0c0c0;
+            border: 1px outset #c0c0c0;
+            width: 16px;
+            height: 14px;
+            font-size: 10px;
+            cursor: pointer;
+        }
+
+        .close-btn:hover {
+            background: #d4d0c8;
+        }
+
+        .close-btn:active {
+            border: 1px inset #c0c0c0;
+        }
+
+        @media (max-width: 768px) {
+            .desktop {
+                padding: 10px;
+            }
+            
+            .window {
+                margin: 10px auto;
+            }
+            
+            .art-gallery {
+                grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="desktop">
+        <!-- Digital Art Window -->
+        <div class="window">
+            <div class="window-header">
+                <div class="window-title">
+                    <div class="window-icon">
+                        <img src="digitalart/My charecter.jpeg" alt="My Character" style="width: 100%; height: 100%; object-fit: cover;">
+                    </div>
+                    Digital Art Gallery
+                </div>
+                <div class="window-controls">
+                    <div class="control-btn" onclick="minimizeWindow()">_</div>
+                    <div class="control-btn" onclick="maximizeWindow()">□</div>
+                    <div class="control-btn" onclick="closeWindow()">×</div>
+                </div>
+            </div>
+            <div class="window-content">
+                <h1 class="page-title">DIGITAL ART COLLECTION</h1>
+                
+                <button class="back-button" onclick="goBack()">← Back to Profile</button>
+
+                <div class="art-gallery">
+                    <div class="art-piece" onclick="showArtDetail('about-me')">
+                        <div class="art-preview">
+                            <img src="digitalart/About Me.jpg" alt="About Me Digital Collage" style="width: 100%; height: 100%; object-fit: cover; border: 1px inset #c0c0c0;">
+                        </div>
+                        <div class="art-name">About Me</div>
+                        <div class="art-description">Vibrant digital collage mixing classical art, pop culture, and technology</div>
+                    </div>
+
+                    <div class="art-piece" onclick="showArtDetail('collage')">
+                        <div class="art-preview">
+                            <img src="digitalart/Collage.jpg" alt="Celebration Collage" style="width: 100%; height: 100%; object-fit: cover; border: 1px inset #c0c0c0;">
+                        </div>
+                        <div class="art-name">Celebration Collage</div>
+                        <div class="art-description">Personal moments and memories with friends and family</div>
+                    </div>
+
+                    <div class="art-piece" onclick="showArtDetail('bubble-kid')">
+                        <div class="art-preview">
+                            <img src="digitalart/Comic _bubble kid.jpg" alt="Bubble Kid Comic" style="width: 100%; height: 100%; object-fit: cover; border: 1px inset #c0c0c0;">
+                        </div>
+                        <div class="art-name">Bubble Kid</div>
+                        <div class="art-description">Original comic character with dynamic pose and bold style</div>
+                    </div>
+
+                    <div class="art-piece" onclick="showArtDetail('hunger-anger')">
+                        <div class="art-preview">
+                            <img src="digitalart/Hunger of Anger Determination.jpg" alt="Hunger of Anger Determination" style="width: 100%; height: 100%; object-fit: cover; border: 1px inset #c0c0c0;">
+                        </div>
+                        <div class="art-name">Hunger of Anger</div>
+                        <div class="art-description">Surreal portrait showing duality and transformation</div>
+                    </div>
+
+                    <div class="art-piece" onclick="showArtDetail('i-see-everything')">
+                        <div class="art-preview">
+                            <img src="digitalart/I see everything.jpeg" alt="I See Everything" style="width: 100%; height: 100%; object-fit: cover; border: 1px inset #c0c0c0;">
+                        </div>
+                        <div class="art-name">I See Everything</div>
+                        <div class="art-description">Bloodshot eye character with intense expression</div>
+                    </div>
+
+                    <div class="art-piece" onclick="showArtDetail('my-character')">
+                        <div class="art-preview">
+                            <img src="digitalart/My charecter.jpeg" alt="My Character" style="width: 100%; height: 100%; object-fit: cover; border: 1px inset #c0c0c0;">
+                        </div>
+                        <div class="art-name">My Character</div>
+                        <div class="art-description">Stylized character with X eyes and unique design</div>
+                    </div>
+
+                    <div class="art-piece" onclick="showArtDetail('the-enemies')">
+                        <div class="art-preview">
+                            <img src="digitalart/The Enemies.jpg" alt="The Enemies" style="width: 100%; height: 100%; object-fit: cover; border: 1px inset #c0c0c0;">
+                        </div>
+                        <div class="art-name">The Enemies</div>
+                        <div class="art-description">Dual character design with contrasting personalities</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Taskbar -->
+    <div class="taskbar">
+        <div class="clock" id="clock"></div>
+    </div>
+
+    <!-- Modal for Art Details -->
+    <div class="modal" id="artModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <span id="modalTitle">Art Details</span>
+                <button class="close-btn" onclick="closeModal()">×</button>
+            </div>
+            <div id="modalContent">
+                <!-- Content will be populated by JavaScript -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Update clock
+        function updateClock() {
+            const now = new Date();
+            const timeString = now.toLocaleTimeString();
+            document.getElementById('clock').textContent = timeString;
+        }
+
+        setInterval(updateClock, 1000);
+        updateClock();
+
+        // Window controls
+        function minimizeWindow() {
+            alert('Window minimized! (This would minimize the window in a real app)');
+        }
+
+        function maximizeWindow() {
+            alert('Window maximized! (This would maximize the window in a real app)');
+        }
+
+        function closeWindow() {
+            if (confirm('Are you sure you want to close this window?')) {
+                window.location.href = 'index.html';
+            }
+        }
+
+
+        function goBack() {
+            playClickSound();
+            setTimeout(() => {
+                window.location.href = 'index.html';
+            }, 100);
+        }
+
+        // Art details
+        function showArtDetail(artType) {
+            const artDetails = {
+                'about-me': {
+                    title: 'About Me',
+                    imagePath: 'digitalart/About Me.jpg',
+                    description: 'A vibrant digital collage that represents my eclectic artistic style, combining elements from classical art, pop culture, technology, and nature. This piece features a surreal composition with a classical statue wearing headphones, a skateboarder, anime characters, vintage computer setup, and various pop culture references, all set against a striking sunburst background.',
+                    details: 'Created with: Digital Collage Techniques\nTime: 6 hours\nResolution: High Resolution\nStyle: Surreal Digital Collage'
+                },
+                'collage': {
+                    title: 'Celebration Collage',
+                    imagePath: 'digitalart/Collage.jpg',
+                    description: 'A heartfelt digital collage capturing precious moments with friends and family. This piece features graduation ceremonies, beach outings, cosplay events, and everyday celebrations, all enhanced with magical decorative elements like glowing sprites, flowers, and celestial graphics. It represents the joy of community and personal connections.',
+                    details: 'Created with: Digital Collage Techniques\nTime: 4 hours\nResolution: High Resolution\nStyle: Personal Memory Collage'
+                },
+                'bubble-kid': {
+                    title: 'Bubble Kid',
+                    imagePath: 'digitalart/Comic _bubble kid.jpg',
+                    description: 'An original comic character design featuring a determined young boy with a dynamic pose. The character has a bold, graphic style with thick black outlines and vibrant colors. The piece showcases strong character design principles with expressive facial features and an energetic stance.',
+                    details: 'Created with: Digital Illustration\nTime: 3 hours\nResolution: High Resolution\nStyle: Comic Book Character Design'
+                },
+                'hunger-anger': {
+                    title: 'Hunger of Anger',
+                    imagePath: 'digitalart/Hunger of Anger Determination.jpg',
+                    description: 'A powerful surreal portrait exploring themes of duality and transformation. The piece features a split composition showing both human and skeletal elements, with dramatic lighting and shattered blue elements creating a sense of breaking free from constraints.',
+                    details: 'Created with: Digital Painting\nTime: 5 hours\nResolution: High Resolution\nStyle: Surreal Digital Art'
+                },
+                'i-see-everything': {
+                    title: 'I See Everything',
+                    imagePath: 'digitalart/I see everything.jpeg',
+                    description: 'A stylized character design featuring a bloodshot eye wearing a beanie. The piece uses bold graphic design principles with thick outlines and flat colors, creating a striking and memorable character with an intense, watchful expression.',
+                    details: 'Created with: Digital Illustration\nTime: 2 hours\nResolution: High Resolution\nStyle: Graphic Character Design'
+                },
+                'my-character': {
+                    title: 'My Character',
+                    imagePath: 'digitalart/My charecter.jpeg',
+                    description: 'A unique character design featuring a teal-faced figure with X-shaped eyes and a wide smile. The piece demonstrates strong character design skills with bold color choices, distinctive features, and a memorable visual style.',
+                    details: 'Created with: Digital Illustration\nTime: 2.5 hours\nResolution: High Resolution\nStyle: Stylized Character Design'
+                },
+                'the-enemies': {
+                    title: 'The Enemies',
+                    imagePath: 'digitalart/The Enemies.jpg',
+                    description: 'A dual character design showcasing contrasting personalities and visual styles. The piece features a cat-like creature on one side and a humanoid figure on the other, with bold color division and graphic design elements creating a dynamic composition.',
+                    details: 'Created with: Digital Illustration\nTime: 4 hours\nResolution: High Resolution\nStyle: Character Design Duo'
+                },
+                'cyberpunk-city': {
+                    title: 'Cyberpunk Cityscape',
+                    description: 'A detailed digital painting of a futuristic city at night, featuring neon lights, rain effects, and atmospheric lighting. Created using Photoshop with custom brushes and layer effects.',
+                    details: 'Created with: Adobe Photoshop\nTime: 12 hours\nResolution: 4K\nStyle: Cyberpunk Digital Art'
+                },
+                'abstract-portrait': {
+                    title: 'Abstract Portrait',
+                    description: 'An experimental digital portrait that combines traditional painting techniques with modern digital tools. Features bold colors and abstract elements.',
+                    details: 'Created with: Procreate, Photoshop\nTime: 6 hours\nResolution: 2K\nStyle: Abstract Digital Art'
+                },
+                'nature-scene': {
+                    title: 'Digital Nature',
+                    description: 'A fantasy landscape featuring vibrant colors and magical elements. This piece explores the intersection of nature and imagination.',
+                    details: 'Created with: Procreate\nTime: 8 hours\nResolution: 3K\nStyle: Fantasy Digital Art'
+                },
+                'character-design': {
+                    title: 'Character Design',
+                    description: 'Original character concept created for a game project. Features detailed design elements and multiple views.',
+                    details: 'Created with: Photoshop\nTime: 10 hours\nResolution: 2K\nStyle: Character Design'
+                },
+                'space-scene': {
+                    title: 'Space Exploration',
+                    description: 'A sci-fi scene depicting cosmic exploration with detailed space elements and atmospheric effects.',
+                    details: 'Created with: Photoshop, Blender\nTime: 15 hours\nResolution: 4K\nStyle: Sci-Fi Digital Art'
+                },
+                'surreal-art': {
+                    title: 'Surreal Dreams',
+                    description: 'An abstract surreal composition that explores the boundaries between reality and imagination.',
+                    details: 'Created with: Procreate\nTime: 7 hours\nResolution: 2K\nStyle: Surreal Digital Art'
+                }
+            };
+
+            const art = artDetails[artType];
+            if (art) {
+                document.getElementById('modalTitle').textContent = art.title;
+                document.getElementById('modalContent').innerHTML = `
+                    <div style="text-align: center; margin-bottom: 20px;">
+                        <img src="${art.imagePath}" alt="${art.title}" style="max-width: 300px; max-height: 300px; border: 2px inset #c0c0c0; box-shadow: 2px 2px 5px rgba(0,0,0,0.3);">
+                    </div>
+                    <p><strong>Description:</strong></p>
+                    <p>${art.description}</p>
+                    <br>
+                    <p><strong>Details:</strong></p>
+                    <pre>${art.details}</pre>
+                `;
+                document.getElementById('artModal').style.display = 'block';
+            }
+        }
+
+        function closeModal() {
+            document.getElementById('artModal').style.display = 'none';
+        }
+
+        // Close modal when clicking outside
+        window.onclick = function(event) {
+            const modal = document.getElementById('artModal');
+            if (event.target === modal) {
+                closeModal();
+            }
+        }
+
+        // Game start sound effect
+        function playClickSound() {
+            const audio = new Audio('game-start-6104.mp3');
+            audio.volume = 0.3;
+            audio.play().catch(e => {
+                console.log('Audio play failed:', e);
+            });
+        }
+
+        // Add click sounds to interactive elements
+        document.addEventListener('DOMContentLoaded', function() {
+            const clickableElements = document.querySelectorAll('.art-piece, .control-btn, .back-button');
+            clickableElements.forEach(element => {
+                element.addEventListener('click', playClickSound);
+            });
+        });
+    </script>
+</body>
+</html>

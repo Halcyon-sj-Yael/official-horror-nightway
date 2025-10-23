@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Concept Art - Yael's Portfolio</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Courier New', 'Monaco', 'Consolas', monospace;
+            font-weight: bold;
+            font-size: 18px;
+            background: #000;
+            background-image: url('concept-art.gif');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .desktop {
+            position: relative;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .window {
+            background: #c0c0c0;
+            border: 2px outset #c0c0c0;
+            box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+            position: relative;
+            margin: 20px auto;
+            max-width: 1000px;
+        }
+
+        .window-header {
+            background: linear-gradient(90deg, #000080, #0000ff);
+            color: white;
+            padding: 4px 6px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 11px;
+            font-weight: bold;
+        }
+
+        .window-title {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .window-icon {
+            width: 16px;
+            height: 16px;
+            background: #c0c0c0;
+            border: 1px inset #c0c0c0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 10px;
+        }
+
+        .window-controls {
+            display: flex;
+            gap: 2px;
+        }
+
+        .control-btn {
+            width: 16px;
+            height: 14px;
+            background: #c0c0c0;
+            border: 1px outset #c0c0c0;
+            font-size: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+
+        .control-btn:hover {
+            background: #d4d0c8;
+        }
+
+        .control-btn:active {
+            border: 1px inset #c0c0c0;
+        }
+
+        .window-content {
+            padding: 30px;
+            background: #c0c0c0;
+        }
+
+        .page-title {
+            font-size: 28px;
+            font-weight: bold;
+            color: #000080;
+            margin-bottom: 20px;
+            text-align: center;
+            text-shadow: 1px 1px 0px #ffffff;
+        }
+
+        .back-button {
+            background: #c0c0c0;
+            border: 2px outset #c0c0c0;
+            padding: 8px 16px;
+            font-size: 12px;
+            cursor: pointer;
+            margin: 20px 0;
+            display: inline-block;
+        }
+
+        .back-button:hover {
+            background: #d4d0c8;
+        }
+
+        .back-button:active {
+            border: 2px inset #c0c0c0;
+        }
+
+        .concept-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+            margin: 30px 0;
+        }
+
+        .concept-item {
+            background: #ffffff;
+            border: 2px outset #c0c0c0;
+            padding: 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            min-height: 280px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .concept-item:hover {
+            background: #d4d0c8;
+            border: 2px inset #c0c0c0;
+        }
+
+        .concept-item:active {
+            border: 2px inset #c0c0c0;
+        }
+
+        .concept-preview {
+            width: 200px;
+            height: 200px;
+            background: #c0c0c0;
+            border: 1px inset #c0c0c0;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            color: #808080;
+            transition: transform 0.3s ease;
+        }
+
+        .concept-preview:hover {
+            transform: rotate(5deg) scale(1.05);
+        }
+
+        .concept-name {
+            font-size: 14px;
+            font-weight: bold;
+            color: #000000;
+            margin-bottom: 5px;
+        }
+
+        .concept-description {
+            font-size: 11px;
+            color: #666666;
+            line-height: 1.3;
+        }
+
+        .taskbar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: #c0c0c0;
+            border-top: 1px solid #ffffff;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            padding: 0 5px;
+            z-index: 1000;
+        }
+
+        .start-button {
+            background: #c0c0c0;
+            border: 1px outset #c0c0c0;
+            padding: 2px 8px;
+            font-size: 11px;
+            font-weight: bold;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .start-button:hover {
+            background: #d4d0c8;
+        }
+
+        .start-button:active {
+            border: 1px inset #c0c0c0;
+        }
+
+        .clock {
+            margin-left: auto;
+            font-size: 11px;
+            color: #000000;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 2000;
+        }
+
+        .modal-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: #c0c0c0;
+            border: 2px outset #c0c0c0;
+            padding: 20px;
+            max-width: 600px;
+            width: 90%;
+        }
+
+        .modal-header {
+            background: linear-gradient(90deg, #000080, #0000ff);
+            color: white;
+            padding: 4px 6px;
+            margin: -20px -20px 15px -20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 11px;
+            font-weight: bold;
+        }
+
+        .close-btn {
+            background: #c0c0c0;
+            border: 1px outset #c0c0c0;
+            width: 16px;
+            height: 14px;
+            font-size: 10px;
+            cursor: pointer;
+        }
+
+        .close-btn:hover {
+            background: #d4d0c8;
+        }
+
+        .close-btn:active {
+            border: 1px inset #c0c0c0;
+        }
+
+        @media (max-width: 768px) {
+            .desktop {
+                padding: 10px;
+            }
+            
+            .window {
+                margin: 10px auto;
+            }
+            
+            .concept-gallery {
+                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="desktop">
+        <!-- Concept Art Window -->
+        <div class="window">
+            <div class="window-header">
+                <div class="window-title">
+                    <div class="window-icon">
+                        <img src="concept-art/Skull Head.jpeg" alt="Skull Head Concept Art" style="width: 100%; height: 100%; object-fit: cover;">
+                    </div>
+                    Concept Art Gallery
+                </div>
+                <div class="window-controls">
+                    <div class="control-btn" onclick="minimizeWindow()">_</div>
+                    <div class="control-btn" onclick="maximizeWindow()">□</div>
+                    <div class="control-btn" onclick="closeWindow()">×</div>
+                </div>
+            </div>
+            <div class="window-content">
+                <h1 class="page-title">CONCEPT ART COLLECTION</h1>
+                
+                <button class="back-button" onclick="goBack()">← Back to Profile</button>
+
+                <div class="concept-gallery">
+                    <div class="concept-item" onclick="showConceptDetail('bloom-after-death')">
+                        <div class="concept-preview">
+                            <img src="concept-art/Bloom After Death.jpeg" alt="Bloom After Death" style="width: 100%; height: 100%; object-fit: cover; border: 1px inset #c0c0c0;">
+                        </div>
+                        <div class="concept-name">Bloom After Death</div>
+                        <div class="concept-description">Dark fantasy concept exploring themes of rebirth and decay</div>
+                    </div>
+
+                    <div class="concept-item" onclick="showConceptDetail('breaking-point')">
+                        <div class="concept-preview">
+                            <img src="concept-art/Breaking Point.jpeg" alt="Breaking Point" style="width: 100%; height: 100%; object-fit: cover; border: 1px inset #c0c0c0;">
+                        </div>
+                        <div class="concept-name">Breaking Point</div>
+                        <div class="concept-description">Emotional concept art depicting psychological tension</div>
+                    </div>
+
+                    <div class="concept-item" onclick="showConceptDetail('emotion')">
+                        <div class="concept-preview">
+                            <img src="concept-art/Emotion.jpeg" alt="Emotion" style="width: 100%; height: 100%; object-fit: cover; border: 1px inset #c0c0c0;">
+                        </div>
+                        <div class="concept-name">Emotion</div>
+                        <div class="concept-description">Abstract representation of human feelings and expression</div>
+                    </div>
+
+                    <div class="concept-item" onclick="showConceptDetail('moonlit-resurrection')">
+                        <div class="concept-preview">
+                            <img src="concept-art/Moonlit Resurrection.jpeg" alt="Moonlit Resurrection" style="width: 100%; height: 100%; object-fit: cover; border: 1px inset #c0c0c0;">
+                        </div>
+                        <div class="concept-name">Moonlit Resurrection</div>
+                        <div class="concept-description">Mystical concept featuring lunar themes and transformation</div>
+                    </div>
+
+                    <div class="concept-item" onclick="showConceptDetail('recornation')">
+                        <div class="concept-preview">
+                            <img src="concept-art/Recornation.jpeg" alt="Recornation" style="width: 100%; height: 100%; object-fit: cover; border: 1px inset #c0c0c0;">
+                        </div>
+                        <div class="concept-name">Recornation</div>
+                        <div class="concept-description">Surreal concept exploring themes of power and transformation</div>
+                    </div>
+
+                    <div class="concept-item" onclick="showConceptDetail('skull-head')">
+                        <div class="concept-preview">
+                            <img src="concept-art/Skull Head.jpeg" alt="Skull Head" style="width: 100%; height: 100%; object-fit: cover; border: 1px inset #c0c0c0;">
+                        </div>
+                        <div class="concept-name">Skull Head</div>
+                        <div class="concept-description">Dark anatomical study with gothic influences</div>
+                    </div>
+
+                    <div class="concept-item" onclick="showConceptDetail('three-headed-pumpkins')">
+                        <div class="concept-preview">
+                            <img src="concept-art/Three Headed Pumkins.jpeg" alt="Three Headed Pumpkins" style="width: 100%; height: 100%; object-fit: cover; border: 1px inset #c0c0c0;">
+                        </div>
+                        <div class="concept-name">Three Headed Pumpkins</div>
+                        <div class="concept-description">Halloween-inspired concept with surreal creature design</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Taskbar -->
+    <div class="taskbar">
+        <div class="clock" id="clock"></div>
+    </div>
+
+    <!-- Modal for Concept Art Details -->
+    <div class="modal" id="conceptModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <span id="modalTitle">Concept Art Details</span>
+                <button class="close-btn" onclick="closeModal()">×</button>
+            </div>
+            <div id="modalContent">
+                <!-- Content will be populated by JavaScript -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Update clock
+        function updateClock() {
+            const now = new Date();
+            const timeString = now.toLocaleTimeString();
+            document.getElementById('clock').textContent = timeString;
+        }
+
+        setInterval(updateClock, 1000);
+        updateClock();
+
+        // Window controls
+        function minimizeWindow() {
+            alert('Window minimized! (This would minimize the window in a real app)');
+        }
+
+        function maximizeWindow() {
+            alert('Window maximized! (This would maximize the window in a real app)');
+        }
+
+        function closeWindow() {
+            if (confirm('Are you sure you want to close this window?')) {
+                window.location.href = 'index.html';
+            }
+        }
+
+
+        function goBack() {
+            playClickSound();
+            setTimeout(() => {
+                window.location.href = 'index.html';
+            }, 100);
+        }
+
+        // Concept art details
+        function showConceptDetail(conceptType) {
+            const conceptDetails = {
+                'bloom-after-death': {
+                    title: 'Bloom After Death',
+                    imagePath: 'concept-art/Bloom After Death.jpeg',
+                    description: 'A dark fantasy concept piece exploring themes of rebirth and decay. This artwork combines organic elements with gothic aesthetics to create a haunting yet beautiful composition that challenges traditional notions of life and death.',
+                    details: 'Created with: Digital Painting\nSoftware: Photoshop\nStyle: Dark Fantasy\nTheme: Rebirth & Decay\nMood: Haunting & Beautiful'
+                },
+                'breaking-point': {
+                    title: 'Breaking Point',
+                    imagePath: 'concept-art/Breaking Point.jpeg',
+                    description: 'An emotional concept art piece that captures psychological tension and internal struggle. The composition uses dramatic lighting and expressive forms to convey the intensity of reaching one\'s breaking point.',
+                    details: 'Created with: Digital Painting\nSoftware: Procreate\nStyle: Psychological Drama\nTheme: Internal Struggle\nMood: Intense & Emotional'
+                },
+                'emotion': {
+                    title: 'Emotion',
+                    imagePath: 'concept-art/Emotion.jpeg',
+                    description: 'An abstract representation of human feelings and expression. This concept piece uses color, form, and composition to visually communicate complex emotional states without relying on literal representation.',
+                    details: 'Created with: Digital Painting\nSoftware: Photoshop\nStyle: Abstract Expressionism\nTheme: Human Emotion\nMood: Contemplative & Expressive'
+                },
+                'moonlit-resurrection': {
+                    title: 'Moonlit Resurrection',
+                    imagePath: 'concept-art/Moonlit Resurrection.jpeg',
+                    description: 'A mystical concept featuring lunar themes and transformation. This piece explores the idea of rebirth under the moonlight, combining celestial imagery with organic forms to create a sense of magical transformation.',
+                    details: 'Created with: Digital Painting\nSoftware: Photoshop\nStyle: Mystical Fantasy\nTheme: Lunar Transformation\nMood: Mystical & Ethereal'
+                },
+                'recornation': {
+                    title: 'Recornation',
+                    imagePath: 'concept-art/Recornation.jpeg',
+                    description: 'A surreal concept exploring themes of power and transformation. This piece combines regal imagery with organic elements to create a unique visual metaphor for personal growth and empowerment.',
+                    details: 'Created with: Digital Painting\nSoftware: Procreate\nStyle: Surreal Fantasy\nTheme: Power & Transformation\nMood: Regal & Surreal'
+                },
+                'skull-head': {
+                    title: 'Skull Head',
+                    imagePath: 'concept-art/Skull Head.jpeg',
+                    description: 'A dark anatomical study with gothic influences. This concept piece demonstrates strong understanding of bone structure while incorporating artistic interpretation and gothic aesthetic elements.',
+                    details: 'Created with: Digital Painting\nSoftware: Photoshop\nStyle: Gothic Anatomy\nTheme: Death & Mortality\nMood: Dark & Anatomical'
+                },
+                'three-headed-pumpkins': {
+                    title: 'Three Headed Pumpkins',
+                    imagePath: 'concept-art/Three Headed Pumkins.jpeg',
+                    description: 'A Halloween-inspired concept with surreal creature design. This piece combines seasonal elements with imaginative creature design to create a unique and memorable character concept.',
+                    details: 'Created with: Digital Painting\nSoftware: Procreate\nStyle: Surreal Halloween\nTheme: Creature Design\nMood: Playful & Surreal'
+                }
+            };
+
+            const concept = conceptDetails[conceptType];
+            if (concept) {
+                document.getElementById('modalTitle').textContent = concept.title;
+                document.getElementById('modalContent').innerHTML = `
+                    <div style="text-align: center; margin-bottom: 20px;">
+                        <img src="${concept.imagePath}" alt="${concept.title}" style="max-width: 300px; max-height: 300px; border: 2px inset #c0c0c0; box-shadow: 2px 2px 5px rgba(0,0,0,0.3);">
+                    </div>
+                    <p><strong>Description:</strong></p>
+                    <p>${concept.description}</p>
+                    <br>
+                    <p><strong>Technical Details:</strong></p>
+                    <pre>${concept.details}</pre>
+                `;
+                document.getElementById('conceptModal').style.display = 'block';
+            }
+        }
+
+        function closeModal() {
+            document.getElementById('conceptModal').style.display = 'none';
+        }
+
+        // Close modal when clicking outside
+        window.onclick = function(event) {
+            const modal = document.getElementById('conceptModal');
+            if (event.target === modal) {
+                closeModal();
+            }
+        }
+
+        // Game start sound effect
+        function playClickSound() {
+            const audio = new Audio('game-start-6104.mp3');
+            audio.volume = 0.3;
+            audio.play().catch(e => {
+                console.log('Audio play failed:', e);
+            });
+        }
+
+        // Add click sounds to interactive elements
+        document.addEventListener('DOMContentLoaded', function() {
+            const clickableElements = document.querySelectorAll('.concept-item, .control-btn, .back-button');
+            clickableElements.forEach(element => {
+                element.addEventListener('click', playClickSound);
+            });
+        });
+    </script>
+</body>
+</html>

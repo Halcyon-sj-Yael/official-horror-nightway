@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Game Assets - Yael's Portfolio</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Courier New', 'Monaco', 'Consolas', monospace;
+            font-weight: bold;
+            font-size: 18px;
+            background: #000;
+            background-image: url('game-assest.gif');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .desktop {
+            position: relative;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .window {
+            background: #c0c0c0;
+            border: 2px outset #c0c0c0;
+            box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+            position: relative;
+            margin: 20px auto;
+            max-width: 1000px;
+        }
+
+        .window-header {
+            background: linear-gradient(90deg, #000080, #0000ff);
+            color: white;
+            padding: 4px 6px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 11px;
+            font-weight: bold;
+        }
+
+        .window-title {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .window-icon {
+            width: 16px;
+            height: 16px;
+            background: #c0c0c0;
+            border: 1px inset #c0c0c0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 10px;
+        }
+
+        .window-controls {
+            display: flex;
+            gap: 2px;
+        }
+
+        .control-btn {
+            width: 16px;
+            height: 14px;
+            background: #c0c0c0;
+            border: 1px outset #c0c0c0;
+            font-size: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+
+        .control-btn:hover {
+            background: #d4d0c8;
+        }
+
+        .control-btn:active {
+            border: 1px inset #c0c0c0;
+        }
+
+        .window-content {
+            padding: 30px;
+            background: #c0c0c0;
+        }
+
+        .page-title {
+            font-size: 28px;
+            font-weight: bold;
+            color: #000080;
+            margin-bottom: 20px;
+            text-align: center;
+            text-shadow: 1px 1px 0px #ffffff;
+        }
+
+        .back-button {
+            background: #c0c0c0;
+            border: 2px outset #c0c0c0;
+            padding: 8px 16px;
+            font-size: 12px;
+            cursor: pointer;
+            margin: 20px 0;
+            display: inline-block;
+        }
+
+        .back-button:hover {
+            background: #d4d0c8;
+        }
+
+        .back-button:active {
+            border: 2px inset #c0c0c0;
+        }
+
+        .assets-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+            margin: 30px 0;
+        }
+
+        .asset-item {
+            background: #ffffff;
+            border: 2px outset #c0c0c0;
+            padding: 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            min-height: 280px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .asset-item:hover {
+            background: #d4d0c8;
+            border: 2px inset #c0c0c0;
+        }
+
+        .asset-item:active {
+            border: 2px inset #c0c0c0;
+        }
+
+        .asset-preview {
+            width: 200px;
+            height: 200px;
+            background: #c0c0c0;
+            border: 1px inset #c0c0c0;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            color: #808080;
+            transition: transform 0.3s ease;
+        }
+
+        .asset-preview:hover {
+            transform: rotate(5deg) scale(1.05);
+        }
+
+        .asset-name {
+            font-size: 14px;
+            font-weight: bold;
+            color: #000000;
+            margin-bottom: 5px;
+        }
+
+        .asset-description {
+            font-size: 11px;
+            color: #666666;
+            line-height: 1.3;
+        }
+
+        .taskbar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: #c0c0c0;
+            border-top: 1px solid #ffffff;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            padding: 0 5px;
+            z-index: 1000;
+        }
+
+        .start-button {
+            background: #c0c0c0;
+            border: 1px outset #c0c0c0;
+            padding: 2px 8px;
+            font-size: 11px;
+            font-weight: bold;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .start-button:hover {
+            background: #d4d0c8;
+        }
+
+        .start-button:active {
+            border: 1px inset #c0c0c0;
+        }
+
+        .clock {
+            margin-left: auto;
+            font-size: 11px;
+            color: #000000;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 2000;
+        }
+
+        .modal-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: #c0c0c0;
+            border: 2px outset #c0c0c0;
+            padding: 20px;
+            max-width: 600px;
+            width: 90%;
+        }
+
+        .modal-header {
+            background: linear-gradient(90deg, #000080, #0000ff);
+            color: white;
+            padding: 4px 6px;
+            margin: -20px -20px 15px -20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 11px;
+            font-weight: bold;
+        }
+
+        .close-btn {
+            background: #c0c0c0;
+            border: 1px outset #c0c0c0;
+            width: 16px;
+            height: 14px;
+            font-size: 10px;
+            cursor: pointer;
+        }
+
+        .close-btn:hover {
+            background: #d4d0c8;
+        }
+
+        .close-btn:active {
+            border: 1px inset #c0c0c0;
+        }
+
+        @media (max-width: 768px) {
+            .desktop {
+                padding: 10px;
+            }
+            
+            .window {
+                margin: 10px auto;
+            }
+            
+            .assets-gallery {
+                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="desktop">
+        <!-- Game Assets Window -->
+        <div class="window">
+            <div class="window-header">
+                <div class="window-title">
+                    <div class="window-icon">
+                        <img src="game-assest/Nightway.jpg" alt="Nightway Game" style="width: 100%; height: 100%; object-fit: cover;">
+                    </div>
+                    Game Assets Gallery
+                </div>
+                <div class="window-controls">
+                    <div class="control-btn" onclick="minimizeWindow()">_</div>
+                    <div class="control-btn" onclick="maximizeWindow()">□</div>
+                    <div class="control-btn" onclick="closeWindow()">×</div>
+                </div>
+            </div>
+            <div class="window-content">
+                <h1 class="page-title">GAME ASSETS COLLECTION</h1>
+                
+                <button class="back-button" onclick="goBack()">← Back to Profile</button>
+
+                <div class="assets-gallery">
+                    <div class="asset-item" onclick="showAssetDetail('nightway-asset')">
+                        <div class="asset-preview">
+                            <img src="game-assest/Nightway.jpg" alt="Nightway Asset" style="width: 100%; height: 100%; object-fit: cover; border: 1px inset #c0c0c0;">
+                        </div>
+                        <div class="asset-name">Nightway Asset</div>
+                        <div class="asset-description">Individual game asset with detailed textures and models</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Taskbar -->
+    <div class="taskbar">
+        <div class="clock" id="clock"></div>
+    </div>
+
+    <!-- Modal for Asset Details -->
+    <div class="modal" id="assetModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <span id="modalTitle">Asset Details</span>
+                <button class="close-btn" onclick="closeModal()">×</button>
+            </div>
+            <div id="modalContent">
+                <!-- Content will be populated by JavaScript -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Update clock
+        function updateClock() {
+            const now = new Date();
+            const timeString = now.toLocaleTimeString();
+            document.getElementById('clock').textContent = timeString;
+        }
+
+        setInterval(updateClock, 1000);
+        updateClock();
+
+        // Window controls
+        function minimizeWindow() {
+            alert('Window minimized! (This would minimize the window in a real app)');
+        }
+
+        function maximizeWindow() {
+            alert('Window maximized! (This would maximize the window in a real app)');
+        }
+
+        function closeWindow() {
+            if (confirm('Are you sure you want to close this window?')) {
+                window.location.href = 'index.html';
+            }
+        }
+
+
+        function goBack() {
+            playClickSound();
+            setTimeout(() => {
+                window.location.href = 'index.html';
+            }, 100);
+        }
+
+        // Asset details
+        function showAssetDetail(assetType) {
+            const assetDetails = {
+                'nightway-asset': {
+                    title: 'Nightway Asset',
+                    imagePath: 'game-assest/Nightway.jpg',
+                    description: 'Individual game asset showcasing detailed character design and environmental elements for the horror maze game Nightway. Features high-quality textures, proper UV mapping, and optimized geometry for game engines. Play the full game at: https://halcyon-sj-yael.github.io/official-horror-nightway/',
+                    details: 'Created with: Blender, Substance Painter\nPolygons: 8,500\nTextures: 4K\nMaterials: PBR\nRendering: Real-time\nStyle: Dark Fantasy'
+                }
+            };
+
+            const asset = assetDetails[assetType];
+            if (asset) {
+                document.getElementById('modalTitle').textContent = asset.title;
+                document.getElementById('modalContent').innerHTML = `
+                    <div style="text-align: center; margin-bottom: 20px;">
+                        <img src="${asset.imagePath}" alt="${asset.title}" style="max-width: 300px; max-height: 300px; border: 2px inset #c0c0c0; box-shadow: 2px 2px 5px rgba(0,0,0,0.3);">
+                    </div>
+                    <p><strong>Description:</strong></p>
+                    <p>${asset.description.replace(/https:\/\/halcyon-sj-yael\.github\.io\/official-horror-nightway\//g, '<a href="https://halcyon-sj-yael.github.io/official-horror-nightway/" target="_blank" style="color: #000080; text-decoration: underline;">https://halcyon-sj-yael.github.io/official-horror-nightway/</a>')}</p>
+                    <br>
+                    <p><strong>Technical Details:</strong></p>
+                    <pre>${asset.details.replace(/https:\/\/halcyon-sj-yael\.github\.io\/official-horror-nightway\//g, '<a href="https://halcyon-sj-yael.github.io/official-horror-nightway/" target="_blank" style="color: #000080; text-decoration: underline;">https://halcyon-sj-yael.github.io/official-horror-nightway/</a>')}</pre>
+                `;
+                document.getElementById('assetModal').style.display = 'block';
+            }
+        }
+
+        function closeModal() {
+            document.getElementById('assetModal').style.display = 'none';
+        }
+
+        // Close modal when clicking outside
+        window.onclick = function(event) {
+            const modal = document.getElementById('assetModal');
+            if (event.target === modal) {
+                closeModal();
+            }
+        }
+
+        // Game start sound effect
+        function playClickSound() {
+            const audio = new Audio('game-start-6104.mp3');
+            audio.volume = 0.3;
+            audio.play().catch(e => {
+                console.log('Audio play failed:', e);
+            });
+        }
+
+        // Add click sounds to interactive elements
+        document.addEventListener('DOMContentLoaded', function() {
+            const clickableElements = document.querySelectorAll('.asset-item, .control-btn, .back-button');
+            clickableElements.forEach(element => {
+                element.addEventListener('click', playClickSound);
+            });
+        });
+    </script>
+</body>
+</html>
